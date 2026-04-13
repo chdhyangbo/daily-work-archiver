@@ -118,6 +118,48 @@ cd d:\work\ai\lingma\.lingma\skills\tools
 
 ---
 
+## ⚙️ 配置与查看
+
+### 如何更改 Git 爬取目录
+
+系统默认扫描 `D:\work\code` 和 `D:\work\codepos` 下的所有 Git 仓库。如果您需要更改扫描目录，请按以下步骤操作：
+
+1. 打开脚本文件：`tools\git-work-tracker.ps1`
+2. 找到第 25-28 行左右的 `$projectDirs` 配置项：
+```powershell
+# Project root directories
+$projectDirs = @(
+    "D:\work\code",
+    "D:\work\codepos"
+)
+```
+3. 将其修改为您自己的项目根目录（支持多个目录）：
+```powershell
+$projectDirs = @(
+    "C:\Your\Project\Path\1",
+    "D:\Your\Project\Path\2"
+)
+```
+4. 保存文件后，重新运行自动任务即可生效。
+
+### 日报和周报查看位置
+
+生成的报告文件均保存在本地 `work-archive` 目录下，您可以随时通过文件管理器或编辑器打开查看：
+
+#### 📅 日报位置
+```
+work-archive/daily-reports/YYYY-MM/YYYY-MM-DD.md
+```
+- **打开方式**：在文件管理器中导航至 `work-archive\daily-reports\`，按月份进入对应文件夹即可查看当日报告。
+
+#### 📆 周报位置
+```
+work-archive/weekly-reports/YYYY-WWW.md
+```
+- **打开方式**：在文件管理器中导航至 `work-archive\weekly-reports\`，文件名格式为 `年份-W周数.md`。
+
+---
+
 ## 💡 使用技巧
 
 ### 1. 自动归档最佳实践
