@@ -4,8 +4,8 @@ work-archive/weekly-reports/
 work-archive/monthly-reports/
 work-archive/resume-builder/
 
-# Git Activity Logs (optional, keep if you want to track stats)
-# work-archive/archive-db/git-activities/
+# Git Activity Logs
+work-archive/archive-db/
 
 # Logs
 work-archive/logs/
