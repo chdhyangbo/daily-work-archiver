@@ -1,0 +1,1241 @@
+﻿{
+    "summary":  {
+                    "levelDistribution":  {
+                                              "C":  4,
+                                              "S":  20,
+                                              "B":  70,
+                                              "D":  0,
+                                              "A":  468
+                                          },
+                    "totalCommits":  562,
+                    "generatedAt":  "2026-04-17 15:33:39",
+                    "bestType":  "OTHER",
+                    "averageScore":  82.6,
+                    "topProject":  "intelligence-allot"
+                },
+    "projectQuality":  {
+                           "value":  [
+                                         {
+                                             "avgScore":  82.5,
+                                             "project":  "intelligence-allot",
+                                             "commitCount":  4
+                                         },
+                                         {
+                                             "avgScore":  83.7,
+                                             "project":  "collaborativeSupport",
+                                             "commitCount":  26
+                                         },
+                                         {
+                                             "avgScore":  80.7,
+                                             "project":  "dsl-management",
+                                             "commitCount":  14
+                                         },
+                                         {
+                                             "avgScore":  80,
+                                             "project":  "fast-purchase",
+                                             "commitCount":  2
+                                         },
+                                         {
+                                             "avgScore":  60,
+                                             "project":  "my-live-manage",
+                                             "commitCount":  1
+                                         },
+                                         {
+                                             "avgScore":  82,
+                                             "project":  "dsl-design-system",
+                                             "commitCount":  7
+                                         },
+                                         {
+                                             "avgScore":  82.1,
+                                             "project":  "baike-desktop-client",
+                                             "commitCount":  170
+                                         },
+                                         {
+                                             "avgScore":  70,
+                                             "project":  "combination-medication",
+                                             "commitCount":  2
+                                         },
+                                         {
+                                             "avgScore":  89.7,
+                                             "project":  "jm-bank-card",
+                                             "commitCount":  15
+                                         },
+                                         {
+                                             "avgScore":  83.3,
+                                             "project":  "alliance-admin-web",
+                                             "commitCount":  21
+                                         },
+                                         {
+                                             "avgScore":  82.5,
+                                             "project":  "h5-ct-admin",
+                                             "commitCount":  4
+                                         },
+                                         {
+                                             "avgScore":  82.4,
+                                             "project":  "franchise-operation",
+                                             "commitCount":  17
+                                         },
+                                         {
+                                             "avgScore":  85,
+                                             "project":  "activity-award",
+                                             "commitCount":  1
+                                         },
+                                         {
+                                             "avgScore":  82.6,
+                                             "project":  "operation",
+                                             "commitCount":  225
+                                         },
+                                         {
+                                             "avgScore":  88,
+                                             "project":  "order-reveal",
+                                             "commitCount":  21
+                                         },
+                                         {
+                                             "avgScore":  81.7,
+                                             "project":  "shen-part-time",
+                                             "commitCount":  3
+                                         },
+                                         {
+                                             "avgScore":  77.5,
+                                             "project":  "jm-channels",
+                                             "commitCount":  10
+                                         },
+                                         {
+                                             "avgScore":  83.4,
+                                             "project":  "gis-site-selection",
+                                             "commitCount":  14
+                                         },
+                                         {
+                                             "avgScore":  60,
+                                             "project":  "video-cut",
+                                             "commitCount":  2
+                                         },
+                                         {
+                                             "avgScore":  81.7,
+                                             "project":  "price-tag-print",
+                                             "commitCount":  3
+                                         }
+                                     ],
+                           "Count":  20
+                       },
+    "topCommits":  {
+                       "value":  [
+                                     {
+                                         "hash":  "ba8f4f2",
+                                         "date":  "2025-07-14",
+                                         "project":  "jm-bank-card",
+                                         "subject":  "JMYY-7148:提现fix",
+                                         "type":  "FIX",
+                                         "changed":  1,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "3a96a7c",
+                                         "date":  "2025-07-14",
+                                         "project":  "jm-bank-card",
+                                         "subject":  "JMYY-7148:提现fix",
+                                         "type":  "FIX",
+                                         "changed":  7,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "a34b8ef",
+                                         "date":  "2025-09-01",
+                                         "project":  "collaborativeSupport",
+                                         "subject":  "BK-26548:test",
+                                         "type":  "TEST",
+                                         "changed":  8,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "ef6d723",
+                                         "date":  "2025-07-14",
+                                         "project":  "jm-bank-card",
+                                         "subject":  "JMYY-7148:提现fix",
+                                         "type":  "FIX",
+                                         "changed":  2,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "16928e9",
+                                         "date":  "2025-07-15",
+                                         "project":  "collaborativeSupport",
+                                         "subject":  "BK-24837:提现fix",
+                                         "type":  "FIX",
+                                         "changed":  148,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "d758cbd",
+                                         "date":  "2025-07-17",
+                                         "project":  "jm-bank-card",
+                                         "subject":  "JMYY-7148:提现fix",
+                                         "type":  "FIX",
+                                         "changed":  2,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "1442cd0",
+                                         "date":  "2025-07-31",
+                                         "project":  "collaborativeSupport",
+                                         "subject":  "BK-24923:test",
+                                         "type":  "TEST",
+                                         "changed":  86,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "5ddda04",
+                                         "date":  "2025-07-16",
+                                         "project":  "jm-bank-card",
+                                         "subject":  "JMYY-7148:提现fix",
+                                         "type":  "FIX",
+                                         "changed":  16,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "1bea258",
+                                         "date":  "2025-07-17",
+                                         "project":  "operation",
+                                         "subject":  "BK-25292:提现fixed",
+                                         "type":  "FIX",
+                                         "changed":  574,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Large"
+                                     },
+                                     {
+                                         "hash":  "c461bef",
+                                         "date":  "2026-04-15",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837:fix:【晒单活动】修复问题 - 将总销售金额字段从 totalRewardMoney 改为 totalSalesAmount，确保数据映射正确（接口返回 totalSalesAmount 对应总销售金额）",
+                                         "type":  "FIX",
+                                         "changed":  4,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Long msg, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "2156e39",
+                                         "date":  "2026-04-17",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837:fix:【晒单活动】",
+                                         "type":  "FIX",
+                                         "changed":  164,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "09f62d5",
+                                         "date":  "2026-04-15",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837:fix:【晒单活动】修复问题 - 修复活动状态切换时tab索引计算错误（currentIndex = item.type）；修复summary接口重复调用问题（watch条件改为检查deptId真实值，避免空字符串触发无效请求）",
+                                         "type":  "FIX",
+                                         "changed":  8,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Long msg, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "fd702f4",
+                                         "date":  "2026-04-15",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837:fix:【药动销-晒单活动】去除下方tab栏权限控制 - 注释掉 startup.js 中的 checkUserRole 调用，移除底部 tab 栏的权限验证逻辑",
+                                         "type":  "FIX",
+                                         "changed":  2,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "4f1b272",
+                                         "date":  "2026-04-15",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837:fix:【药动销-晒单活动】去除下方tab栏权限控制 - 删除 pages.json 中数据跟进 tab 的 visible: false 配置，使其可见",
+                                         "type":  "FIX",
+                                         "changed":  1,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "7b793ec",
+                                         "date":  "2026-04-13",
+                                         "project":  "order-reveal",
+                                         "subject":  "JMYY-10768: feature:【药动销-晒单活动】样式优化",
+                                         "type":  "FEATURE",
+                                         "changed":  61,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "1899884",
+                                         "date":  "2026-04-15",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837: fixed:【药动销-晒单活动】修复getActivity接口传参数 - 修正activityStatus状态值映射为0-进行中/1-即将开始/2-已结束，修复index.vue调用时+1错误，更新activity-popup.vue tabs定义和模板条件",
+                                         "type":  "FIX",
+                                         "changed":  16,
+                                         "score":  100,
+                                         "level":  "S",
+                                         "details":  "Long msg, Has type, No ticket, Size OK"
+                                     },
+                                     {
+                                         "hash":  "fa45a34",
+                                         "date":  "2026-04-10",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837: Fix activity API params, improve UI components and navigation",
+                                         "type":  "FIX",
+                                         "changed":  3644,
+                                         "score":  95,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Too large"
+                                     },
+                                     {
+                                         "hash":  "00b5281",
+                                         "date":  "2026-04-13",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837: feature: 【药动销-晒单活动】提测",
+                                         "type":  "FEATURE",
+                                         "changed":  13422,
+                                         "score":  93,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Too large"
+                                     },
+                                     {
+                                         "hash":  "65cb40b",
+                                         "date":  "2026-01-08",
+                                         "project":  "baike-desktop-client",
+                                         "subject":  "Revert \"BK-27745:Feature/20251209\"",
+                                         "type":  "FEATURE",
+                                         "changed":  3676,
+                                         "score":  93,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Too large"
+                                     },
+                                     {
+                                         "hash":  "80398ea",
+                                         "date":  "2026-04-03",
+                                         "project":  "order-reveal",
+                                         "subject":  "BK-24837:feature:配置药动销晒单活动引入参林设计的新组件",
+                                         "type":  "FEATURE",
+                                         "changed":  18560,
+                                         "score":  93,
+                                         "level":  "S",
+                                         "details":  "Length OK, Has type, No ticket, Too large"
+                                     }
+                                 ],
+                       "Count":  20
+                   },
+    "trend":  {
+                  "value":  [
+                                {
+                                    "date":  "2025-04-21",
+                                    "commitCount":  3,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-04-22",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-04-23",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-04-24",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-04-25",
+                                    "commitCount":  3,
+                                    "avgScore":  68.3
+                                },
+                                {
+                                    "date":  "2025-04-27",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-05-06",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-05-13",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-05-14",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-05-15",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-05-21",
+                                    "commitCount":  1,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2025-05-26",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-05-27",
+                                    "commitCount":  4,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-05-29",
+                                    "commitCount":  2,
+                                    "avgScore":  82.5
+                                },
+                                {
+                                    "date":  "2025-05-30",
+                                    "commitCount":  3,
+                                    "avgScore":  83.3
+                                },
+                                {
+                                    "date":  "2025-06-03",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-06-04",
+                                    "commitCount":  3,
+                                    "avgScore":  83.3
+                                },
+                                {
+                                    "date":  "2025-06-05",
+                                    "commitCount":  4,
+                                    "avgScore":  78.8
+                                },
+                                {
+                                    "date":  "2025-06-06",
+                                    "commitCount":  6,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-06-09",
+                                    "commitCount":  5,
+                                    "avgScore":  84.8
+                                },
+                                {
+                                    "date":  "2025-06-10",
+                                    "commitCount":  4,
+                                    "avgScore":  81.2
+                                },
+                                {
+                                    "date":  "2025-06-11",
+                                    "commitCount":  6,
+                                    "avgScore":  83.3
+                                },
+                                {
+                                    "date":  "2025-06-12",
+                                    "commitCount":  4,
+                                    "avgScore":  83.8
+                                },
+                                {
+                                    "date":  "2025-06-13",
+                                    "commitCount":  12,
+                                    "avgScore":  83.8
+                                },
+                                {
+                                    "date":  "2025-06-16",
+                                    "commitCount":  2,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2025-06-17",
+                                    "commitCount":  6,
+                                    "avgScore":  81.7
+                                },
+                                {
+                                    "date":  "2025-06-18",
+                                    "commitCount":  7,
+                                    "avgScore":  83.6
+                                },
+                                {
+                                    "date":  "2025-06-20",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-06-23",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-06-24",
+                                    "commitCount":  5,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-06-25",
+                                    "commitCount":  4,
+                                    "avgScore":  81.2
+                                },
+                                {
+                                    "date":  "2025-06-27",
+                                    "commitCount":  5,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-06-30",
+                                    "commitCount":  3,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-07-01",
+                                    "commitCount":  12,
+                                    "avgScore":  84.2
+                                },
+                                {
+                                    "date":  "2025-07-02",
+                                    "commitCount":  3,
+                                    "avgScore":  83.3
+                                },
+                                {
+                                    "date":  "2025-07-10",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-07-11",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-07-14",
+                                    "commitCount":  5,
+                                    "avgScore":  93
+                                },
+                                {
+                                    "date":  "2025-07-15",
+                                    "commitCount":  2,
+                                    "avgScore":  92.5
+                                },
+                                {
+                                    "date":  "2025-07-16",
+                                    "commitCount":  3,
+                                    "avgScore":  90
+                                },
+                                {
+                                    "date":  "2025-07-17",
+                                    "commitCount":  5,
+                                    "avgScore":  91
+                                },
+                                {
+                                    "date":  "2025-07-18",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-07-21",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-07-22",
+                                    "commitCount":  3,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-07-23",
+                                    "commitCount":  6,
+                                    "avgScore":  82.5
+                                },
+                                {
+                                    "date":  "2025-07-24",
+                                    "commitCount":  8,
+                                    "avgScore":  84.4
+                                },
+                                {
+                                    "date":  "2025-07-25",
+                                    "commitCount":  6,
+                                    "avgScore":  83.3
+                                },
+                                {
+                                    "date":  "2025-07-29",
+                                    "commitCount":  4,
+                                    "avgScore":  72.5
+                                },
+                                {
+                                    "date":  "2025-07-30",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-07-31",
+                                    "commitCount":  3,
+                                    "avgScore":  90
+                                },
+                                {
+                                    "date":  "2025-08-01",
+                                    "commitCount":  4,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-08-04",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-08-05",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-08-06",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-08-11",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-08-14",
+                                    "commitCount":  5,
+                                    "avgScore":  82
+                                },
+                                {
+                                    "date":  "2025-08-15",
+                                    "commitCount":  8,
+                                    "avgScore":  80.6
+                                },
+                                {
+                                    "date":  "2025-08-19",
+                                    "commitCount":  1,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2025-08-20",
+                                    "commitCount":  1,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2025-08-22",
+                                    "commitCount":  5,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-08-26",
+                                    "commitCount":  2,
+                                    "avgScore":  82.5
+                                },
+                                {
+                                    "date":  "2025-08-28",
+                                    "commitCount":  3,
+                                    "avgScore":  81.3
+                                },
+                                {
+                                    "date":  "2025-08-29",
+                                    "commitCount":  1,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2025-09-01",
+                                    "commitCount":  6,
+                                    "avgScore":  85.8
+                                },
+                                {
+                                    "date":  "2025-09-02",
+                                    "commitCount":  4,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-09-08",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-09-09",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-09-10",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-09-11",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-09-12",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-09-16",
+                                    "commitCount":  3,
+                                    "avgScore":  83.3
+                                },
+                                {
+                                    "date":  "2025-09-17",
+                                    "commitCount":  5,
+                                    "avgScore":  84
+                                },
+                                {
+                                    "date":  "2025-09-18",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-09-19",
+                                    "commitCount":  5,
+                                    "avgScore":  83
+                                },
+                                {
+                                    "date":  "2025-09-22",
+                                    "commitCount":  5,
+                                    "avgScore":  81
+                                },
+                                {
+                                    "date":  "2025-09-23",
+                                    "commitCount":  4,
+                                    "avgScore":  83.8
+                                },
+                                {
+                                    "date":  "2025-09-24",
+                                    "commitCount":  1,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2025-09-25",
+                                    "commitCount":  2,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2025-09-26",
+                                    "commitCount":  4,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-09-28",
+                                    "commitCount":  3,
+                                    "avgScore":  83.3
+                                },
+                                {
+                                    "date":  "2025-09-29",
+                                    "commitCount":  7,
+                                    "avgScore":  84.3
+                                },
+                                {
+                                    "date":  "2025-10-09",
+                                    "commitCount":  2,
+                                    "avgScore":  81.5
+                                },
+                                {
+                                    "date":  "2025-10-10",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-10-11",
+                                    "commitCount":  4,
+                                    "avgScore":  83.8
+                                },
+                                {
+                                    "date":  "2025-10-13",
+                                    "commitCount":  5,
+                                    "avgScore":  84
+                                },
+                                {
+                                    "date":  "2025-10-14",
+                                    "commitCount":  4,
+                                    "avgScore":  81.2
+                                },
+                                {
+                                    "date":  "2025-10-15",
+                                    "commitCount":  6,
+                                    "avgScore":  76.7
+                                },
+                                {
+                                    "date":  "2025-10-16",
+                                    "commitCount":  4,
+                                    "avgScore":  81.2
+                                },
+                                {
+                                    "date":  "2025-10-20",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-10-21",
+                                    "commitCount":  5,
+                                    "avgScore":  84
+                                },
+                                {
+                                    "date":  "2025-10-22",
+                                    "commitCount":  3,
+                                    "avgScore":  81.7
+                                },
+                                {
+                                    "date":  "2025-10-24",
+                                    "commitCount":  1,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2025-11-05",
+                                    "commitCount":  2,
+                                    "avgScore":  77.5
+                                },
+                                {
+                                    "date":  "2025-11-06",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-11-10",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-11-11",
+                                    "commitCount":  4,
+                                    "avgScore":  81.2
+                                },
+                                {
+                                    "date":  "2025-11-14",
+                                    "commitCount":  1,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2025-11-17",
+                                    "commitCount":  5,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-11-18",
+                                    "commitCount":  2,
+                                    "avgScore":  82.5
+                                },
+                                {
+                                    "date":  "2025-11-19",
+                                    "commitCount":  7,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-11-20",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-11-25",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-11-26",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2025-11-27",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-03",
+                                    "commitCount":  5,
+                                    "avgScore":  82
+                                },
+                                {
+                                    "date":  "2025-12-04",
+                                    "commitCount":  7,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-05",
+                                    "commitCount":  4,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-08",
+                                    "commitCount":  4,
+                                    "avgScore":  83.8
+                                },
+                                {
+                                    "date":  "2025-12-09",
+                                    "commitCount":  5,
+                                    "avgScore":  83
+                                },
+                                {
+                                    "date":  "2025-12-10",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-11",
+                                    "commitCount":  6,
+                                    "avgScore":  84.2
+                                },
+                                {
+                                    "date":  "2025-12-12",
+                                    "commitCount":  3,
+                                    "avgScore":  81.7
+                                },
+                                {
+                                    "date":  "2025-12-15",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-16",
+                                    "commitCount":  4,
+                                    "avgScore":  83.8
+                                },
+                                {
+                                    "date":  "2025-12-22",
+                                    "commitCount":  4,
+                                    "avgScore":  81.2
+                                },
+                                {
+                                    "date":  "2025-12-23",
+                                    "commitCount":  4,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-24",
+                                    "commitCount":  2,
+                                    "avgScore":  77.5
+                                },
+                                {
+                                    "date":  "2025-12-26",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-29",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2025-12-30",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-01-07",
+                                    "commitCount":  1,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2026-01-08",
+                                    "commitCount":  1,
+                                    "avgScore":  93
+                                },
+                                {
+                                    "date":  "2026-01-09",
+                                    "commitCount":  2,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2026-01-12",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-01-13",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-01-14",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-01-16",
+                                    "commitCount":  2,
+                                    "avgScore":  77.5
+                                },
+                                {
+                                    "date":  "2026-01-19",
+                                    "commitCount":  3,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2026-01-20",
+                                    "commitCount":  1,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2026-01-21",
+                                    "commitCount":  6,
+                                    "avgScore":  78.3
+                                },
+                                {
+                                    "date":  "2026-01-22",
+                                    "commitCount":  3,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-01-23",
+                                    "commitCount":  2,
+                                    "avgScore":  77.5
+                                },
+                                {
+                                    "date":  "2026-01-27",
+                                    "commitCount":  5,
+                                    "avgScore":  83
+                                },
+                                {
+                                    "date":  "2026-01-28",
+                                    "commitCount":  5,
+                                    "avgScore":  78
+                                },
+                                {
+                                    "date":  "2026-01-29",
+                                    "commitCount":  7,
+                                    "avgScore":  78.6
+                                },
+                                {
+                                    "date":  "2026-01-30",
+                                    "commitCount":  7,
+                                    "avgScore":  77.9
+                                },
+                                {
+                                    "date":  "2026-02-02",
+                                    "commitCount":  7,
+                                    "avgScore":  82.9
+                                },
+                                {
+                                    "date":  "2026-02-03",
+                                    "commitCount":  2,
+                                    "avgScore":  82.5
+                                },
+                                {
+                                    "date":  "2026-02-04",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-02-05",
+                                    "commitCount":  4,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-02-06",
+                                    "commitCount":  6,
+                                    "avgScore":  84.2
+                                },
+                                {
+                                    "date":  "2026-02-09",
+                                    "commitCount":  4,
+                                    "avgScore":  81.2
+                                },
+                                {
+                                    "date":  "2026-02-10",
+                                    "commitCount":  3,
+                                    "avgScore":  78.3
+                                },
+                                {
+                                    "date":  "2026-02-11",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-02-12",
+                                    "commitCount":  2,
+                                    "avgScore":  82.5
+                                },
+                                {
+                                    "date":  "2026-02-13",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-02-25",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-02-28",
+                                    "commitCount":  3,
+                                    "avgScore":  78.3
+                                },
+                                {
+                                    "date":  "2026-03-02",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-03-03",
+                                    "commitCount":  2,
+                                    "avgScore":  82.5
+                                },
+                                {
+                                    "date":  "2026-03-04",
+                                    "commitCount":  5,
+                                    "avgScore":  83
+                                },
+                                {
+                                    "date":  "2026-03-06",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-03-09",
+                                    "commitCount":  1,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2026-03-10",
+                                    "commitCount":  5,
+                                    "avgScore":  81
+                                },
+                                {
+                                    "date":  "2026-03-11",
+                                    "commitCount":  4,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-03-12",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-03-13",
+                                    "commitCount":  7,
+                                    "avgScore":  81.4
+                                },
+                                {
+                                    "date":  "2026-03-16",
+                                    "commitCount":  2,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-03-17",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-03-18",
+                                    "commitCount":  3,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-03-19",
+                                    "commitCount":  2,
+                                    "avgScore":  80.5
+                                },
+                                {
+                                    "date":  "2026-03-20",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-03-23",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-03-24",
+                                    "commitCount":  2,
+                                    "avgScore":  84.5
+                                },
+                                {
+                                    "date":  "2026-03-25",
+                                    "commitCount":  2,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-03-26",
+                                    "commitCount":  3,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2026-03-27",
+                                    "commitCount":  1,
+                                    "avgScore":  70
+                                },
+                                {
+                                    "date":  "2026-04-01",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-04-02",
+                                    "commitCount":  1,
+                                    "avgScore":  80
+                                },
+                                {
+                                    "date":  "2026-04-03",
+                                    "commitCount":  4,
+                                    "avgScore":  87
+                                },
+                                {
+                                    "date":  "2026-04-07",
+                                    "commitCount":  5,
+                                    "avgScore":  79.6
+                                },
+                                {
+                                    "date":  "2026-04-09",
+                                    "commitCount":  1,
+                                    "avgScore":  85
+                                },
+                                {
+                                    "date":  "2026-04-10",
+                                    "commitCount":  1,
+                                    "avgScore":  95
+                                },
+                                {
+                                    "date":  "2026-04-13",
+                                    "commitCount":  2,
+                                    "avgScore":  96.5
+                                },
+                                {
+                                    "date":  "2026-04-14",
+                                    "commitCount":  2,
+                                    "avgScore":  75
+                                },
+                                {
+                                    "date":  "2026-04-15",
+                                    "commitCount":  5,
+                                    "avgScore":  100
+                                },
+                                {
+                                    "date":  "2026-04-16",
+                                    "commitCount":  2,
+                                    "avgScore":  84
+                                },
+                                {
+                                    "date":  "2026-04-17",
+                                    "commitCount":  1,
+                                    "avgScore":  100
+                                }
+                            ],
+                  "Count":  178
+              }
+}

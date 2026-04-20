@@ -1,0 +1,680 @@
+﻿{
+    "contributions":  [
+                          {
+                              "count":  0,
+                              "date":  "2026-01-01"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-02"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-03"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-04"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-05"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-06"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-01-07"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-01-08"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-01-09"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-10"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-11"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-01-12"
+                          },
+                          {
+                              "count":  3,
+                              "date":  "2026-01-13"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-01-14"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-15"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-01-16"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-17"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-18"
+                          },
+                          {
+                              "count":  3,
+                              "date":  "2026-01-19"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-01-20"
+                          },
+                          {
+                              "count":  6,
+                              "date":  "2026-01-21"
+                          },
+                          {
+                              "count":  3,
+                              "date":  "2026-01-22"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-01-23"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-24"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-25"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-26"
+                          },
+                          {
+                              "count":  5,
+                              "date":  "2026-01-27"
+                          },
+                          {
+                              "count":  5,
+                              "date":  "2026-01-28"
+                          },
+                          {
+                              "count":  7,
+                              "date":  "2026-01-29"
+                          },
+                          {
+                              "count":  7,
+                              "date":  "2026-01-30"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-01-31"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-01"
+                          },
+                          {
+                              "count":  7,
+                              "date":  "2026-02-02"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-02-03"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-02-04"
+                          },
+                          {
+                              "count":  4,
+                              "date":  "2026-02-05"
+                          },
+                          {
+                              "count":  6,
+                              "date":  "2026-02-06"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-07"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-08"
+                          },
+                          {
+                              "count":  4,
+                              "date":  "2026-02-09"
+                          },
+                          {
+                              "count":  3,
+                              "date":  "2026-02-10"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-02-11"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-02-12"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-02-13"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-14"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-15"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-16"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-17"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-18"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-19"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-20"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-21"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-22"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-23"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-24"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-02-25"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-26"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-02-27"
+                          },
+                          {
+                              "count":  3,
+                              "date":  "2026-02-28"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-01"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-03-02"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-03-03"
+                          },
+                          {
+                              "count":  5,
+                              "date":  "2026-03-04"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-05"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-03-06"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-07"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-08"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-03-09"
+                          },
+                          {
+                              "count":  5,
+                              "date":  "2026-03-10"
+                          },
+                          {
+                              "count":  4,
+                              "date":  "2026-03-11"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-03-12"
+                          },
+                          {
+                              "count":  7,
+                              "date":  "2026-03-13"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-14"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-15"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-03-16"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-03-17"
+                          },
+                          {
+                              "count":  3,
+                              "date":  "2026-03-18"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-03-19"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-03-20"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-21"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-22"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-03-23"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-03-24"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-03-25"
+                          },
+                          {
+                              "count":  3,
+                              "date":  "2026-03-26"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-03-27"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-28"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-29"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-30"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-03-31"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-04-01"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-04-02"
+                          },
+                          {
+                              "count":  4,
+                              "date":  "2026-04-03"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-04-04"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-04-05"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-04-06"
+                          },
+                          {
+                              "count":  5,
+                              "date":  "2026-04-07"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-04-08"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-04-09"
+                          },
+                          {
+                              "count":  1,
+                              "date":  "2026-04-10"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-04-11"
+                          },
+                          {
+                              "count":  0,
+                              "date":  "2026-04-12"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-04-13"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-04-14"
+                          },
+                          {
+                              "count":  5,
+                              "date":  "2026-04-15"
+                          },
+                          {
+                              "count":  2,
+                              "date":  "2026-04-16"
+                          },
+                          {
+                              "count":  6,
+                              "date":  "2026-04-17"
+                          }
+                      ],
+    "level":  {
+                  "achievements":  {
+                                       "total":  16,
+                                       "unlocked":  7
+                                   },
+                  "name":  "Mid Dev",
+                  "points":  355
+              },
+    "typeDistribution":  {
+                             "FIX":  312,
+                             "DOCS":  0,
+                             "OTHER":  134,
+                             "REFACTOR":  0,
+                             "TEST":  0,
+                             "FEATURE":  4
+                         },
+    "recentCommits":  [
+                          {
+                              "date":  "2026-04-17",
+                              "message":  "BK-24837:feature:【参林收货单支持查看物流配送轨迹】物流组件开发",
+                              "project":  "dsl-management",
+                              "hash":  ""
+                          },
+                          {
+                              "date":  "2026-04-17",
+                              "message":  "BK-24837:fix:订单奖励明细榜未领取状态显示红色#FF3C3F",
+                              "project":  "order-reveal",
+                              "hash":  ""
+                          },
+                          {
+                              "date":  "2026-04-17",
+                              "message":  "BK-24837:fix:订单奖励明细榜已领取颜色改为#FF3C3F，激励金额列加粗",
+                              "project":  "order-reveal",
+                              "hash":  ""
+                          },
+                          {
+                              "date":  "2026-04-17",
+                              "message":  "BK-24837:fix:修正分享页productType枚举对应的图片映射关系",
+                              "project":  "order-reveal",
+                              "hash":  ""
+                          },
+                          {
+                              "date":  "2026-04-17",
+                              "message":  "BK-24837:fix:修正productType枚举对应的图片映射关系",
+                              "project":  "order-reveal",
+                              "hash":  ""
+                          },
+                          {
+                              "date":  "2026-04-17",
+                              "message":  "BK-24837:fix:【晒单活动】",
+                              "project":  "order-reveal",
+                              "hash":  "2156e39"
+                          },
+                          {
+                              "date":  "2026-04-16",
+                              "message":  "BK-24837:【晒单活动】优化活动列表和订单奖励明细 - 修复活动列表初始化状态为进行中(0)；...",
+                              "project":  "order-reveal",
+                              "hash":  "5996708"
+                          },
+                          {
+                              "date":  "2026-04-16",
+                              "message":  "BK-24837:【晒单活动】修复排行榜字段和金额显示 - 更新组织榜、员工榜、商品榜字段（去除缺货...",
+                              "project":  "order-reveal",
+                              "hash":  "22e7dab"
+                          },
+                          {
+                              "date":  "2026-04-15",
+                              "message":  "BK-24837:fix:【晒单活动】修复问题 - 将总销售金额字段从 totalRewardMon...",
+                              "project":  "order-reveal",
+                              "hash":  "c461bef"
+                          },
+                          {
+                              "date":  "2026-04-15",
+                              "message":  "BK-24837:fix:【晒单活动】修复问题 - 修复活动状态切换时tab索引计算错误（curre...",
+                              "project":  "order-reveal",
+                              "hash":  "09f62d5"
+                          },
+                          {
+                              "date":  "2026-04-15",
+                              "message":  "BK-24837:fix:【药动销-晒单活动】去除下方tab栏权限控制 - 删除 pages.jso...",
+                              "project":  "order-reveal",
+                              "hash":  "4f1b272"
+                          },
+                          {
+                              "date":  "2026-04-15",
+                              "message":  "BK-24837:fix:【药动销-晒单活动】去除下方tab栏权限控制 - 注释掉 startup....",
+                              "project":  "order-reveal",
+                              "hash":  "fd702f4"
+                          },
+                          {
+                              "date":  "2026-04-15",
+                              "message":  "BK-24837: fixed:【药动销-晒单活动】修复getActivity接口传参数 - 修正a...",
+                              "project":  "order-reveal",
+                              "hash":  "1899884"
+                          },
+                          {
+                              "date":  "2026-04-14",
+                              "message":  "BK-24837:修改code为jmFranchiseOperation - 修改 startup....",
+                              "project":  "order-reveal",
+                              "hash":  "234f8ae"
+                          },
+                          {
+                              "date":  "2026-04-14",
+                              "message":  "BK-24837:【晒单活动】隐藏红包奖励入口和更换应用权限code为jmFranchiseOper...",
+                              "project":  "order-reveal",
+                              "hash":  "fed186d"
+                          },
+                          {
+                              "date":  "2026-04-13",
+                              "message":  "JMYY-10768: feature:【药动销-晒单活动】样式优化",
+                              "project":  "order-reveal",
+                              "hash":  "7b793ec"
+                          },
+                          {
+                              "date":  "2026-04-13",
+                              "message":  "BK-24837: feature: 【药动销-晒单活动】提测",
+                              "project":  "order-reveal",
+                              "hash":  "00b5281"
+                          },
+                          {
+                              "date":  "2026-04-10",
+                              "message":  "BK-24837: Fix activity API params, improve UI comp...",
+                              "project":  "order-reveal",
+                              "hash":  "fa45a34"
+                          },
+                          {
+                              "date":  "2026-04-09",
+                              "message":  "JMYY-11047: 修复样式展示问题",
+                              "project":  "gis-site-selection",
+                              "hash":  "730d771"
+                          },
+                          {
+                              "date":  "2026-04-07",
+                              "message":  "BK-24837: 直接回退 summary.vue 至 init 版本",
+                              "project":  "order-reveal",
+                              "hash":  "5892be8"
+                          },
+                          {
+                              "date":  "2026-04-07",
+                              "message":  "BK-24837: 回退页面布局及样式至初始版本",
+                              "project":  "order-reveal",
+                              "hash":  "c4ccacd"
+                          },
+                          {
+                              "date":  "2026-04-07",
+                              "message":  "BK-24837: 回退时间选择器至初始版本，恢复 up-calendar",
+                              "project":  "order-reveal",
+                              "hash":  "7485244"
+                          },
+                          {
+                              "date":  "2026-04-07",
+                              "message":  "BK-24837: 回退时间选择器修改，恢复原有实现",
+                              "project":  "order-reveal",
+                              "hash":  "aabbd69"
+                          },
+                          {
+                              "date":  "2026-04-07",
+                              "message":  "BK-24837: 优化数据跟进指标说明弹窗和时间选择器样式",
+                              "project":  "order-reveal",
+                              "hash":  "95dc180"
+                          },
+                          {
+                              "date":  "2026-04-03",
+                              "message":  "BK-24837:feature:配置药动销晒单活动引入参林设计的新组件",
+                              "project":  "order-reveal",
+                              "hash":  "80398ea"
+                          }
+                      ],
+    "projectDistribution":  {
+                                "operation":  225,
+                                "order-reveal":  26,
+                                "activity-award":  1,
+                                "h5-ct-admin":  4,
+                                "franchise-operation":  17,
+                                "video-cut":  2,
+                                "price-tag-print":  3,
+                                "gis-site-selection":  14,
+                                "shen-part-time":  3,
+                                "jm-channels":  10,
+                                "fast-purchase":  2,
+                                "my-live-manage":  1,
+                                "dsl-management":  15,
+                                "intelligence-allot":  4,
+                                "collaborativeSupport":  26,
+                                "jm-bank-card":  15,
+                                "alliance-admin-web":  21,
+                                "combination-medication":  2,
+                                "dsl-design-system":  7,
+                                "baike-desktop-client":  170
+                            },
+    "stats":  {
+                 "weekHours":  0,
+                 "todayCommits":  6,
+                 "maxStreak":  5,
+                 "totalCommits":  568,
+                 "currentStreak":  5,
+                 "todayHours":  0,
+                 "weekCommits":  17
+             },
+    "summary":  {
+                    "weekHours":  0,
+                    "todayCommits":  6,
+                    "maxStreak":  5,
+                    "totalCommits":  568,
+                    "currentStreak":  5,
+                    "todayHours":  0,
+                    "weekCommits":  17
+                },
+    "qualityScore":  82.6,
+    "qualityLevels":  {
+                          "S":  20,
+                          "A":  468,
+                          "B":  70,
+                          "C":  4,
+                          "D":  0
+                      },
+    "achievements":  {
+                         "unlocked":  7,
+                         "totalPoints":  355,
+                         "level":  "Mid Dev"
+                     },
+    "hourlyDistribution":  {
+                               "16":  73,
+                               "3":  0,
+                               "5":  0,
+                               "21":  0,
+                               "18":  68,
+                               "12":  47,
+                               "10":  68,
+                               "2":  0,
+                               "22":  1,
+                               "8":  0,
+                               "0":  0,
+                               "11":  76,
+                               "1":  0,
+                               "17":  57,
+                               "9":  37,
+                               "14":  55,
+                               "7":  0,
+                               "15":  71,
+                               "20":  2,
+                               "23":  0,
+                               "6":  0,
+                               "4":  0,
+                               "19":  7,
+                               "13":  0
+                           },
+    "generatedAt":  "2026-04-17 18:35:00"
+}

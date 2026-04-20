@@ -1,0 +1,21 @@
+﻿{
+    "dateRange":  {
+                      "to":  null,
+                      "from":  null
+                  },
+    "types":  {
+                  "FIX":  0,
+                  "DOCS":  0,
+                  "OTHER":  0,
+                  "REFACTOR":  0,
+                  "TEST":  0,
+                  "FEATURE":  0
+              },
+    "projects":  {
+
+                 },
+    "totalCommits":  0,
+    "generatedAt":  "2026-04-20 12:11:02",
+    "totalDeletions":  0,
+    "totalInsertions":  0
+}

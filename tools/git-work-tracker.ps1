@@ -3,7 +3,10 @@ param(
     [string]$ProjectPath = "D:\work\code",
     [string]$OutputPath = "d:\work\ai\lingma\.lingma\skills\work-archive",
     [switch]$TodayOnly,
-    [switch]$AutoGenerateReport
+    [switch]$AutoGenerateReport,
+    [string]$SinceDate,  # Custom start date (yyyy-MM-dd)
+    [string]$UntilDate,  # Custom end date (yyyy-MM-dd)
+    [switch]$ExportHistory  # Export historical data for past 2 years
 )
 
 # Fix encoding issues - Set console to UTF-8
@@ -20,6 +23,22 @@ Write-Host ""
 $today = Get-Date -Format "yyyy-MM-dd"
 $todayStart = Get-Date -Hour 0 -Minute 0 -Second 0
 $todayEnd = $todayStart.AddHours(23).AddMinutes(59).AddSeconds(59)
+
+# Handle custom date range or history export
+$dateRangeStart = $null
+$dateRangeEnd = $null
+
+if ($ExportHistory) {
+    $dateRangeStart = (Get-Date).AddYears(-2).ToString("yyyy-MM-dd")
+    $dateRangeEnd = $today
+    Write-Host "Mode: Exporting 2-year history ($dateRangeStart to $dateRangeEnd)" -ForegroundColor Cyan
+    Write-Host ""
+} elseif ($SinceDate -and $UntilDate) {
+    $dateRangeStart = $SinceDate
+    $dateRangeEnd = $UntilDate
+    Write-Host "Mode: Custom date range ($dateRangeStart to $dateRangeEnd)" -ForegroundColor Cyan
+    Write-Host ""
+}
 
 # Project root directories
 $projectDirs = @(
@@ -56,11 +75,14 @@ foreach ($rootDir in $projectDirs) {
             $env:GIT_TERMINAL_PROMPT = 0
             
             if ($TodayOnly) {
-                $commitsOutput = & git -c core.quotepath=false log --since="$($todayStart.ToString('yyyy-MM-dd HH:mm:ss'))" --until="$($todayEnd.ToString('yyyy-MM-dd HH:mm:ss'))" --pretty=format:"%H|%ad|%s|%b|%ae" --date=format:"%Y-%m-%d %H:%M:%S" 2>&1
+                $commitsOutput = & git -c core.quotepath=false log --since="$($todayStart.ToString('yyyy-MM-dd HH:mm:ss'))" --until="$($todayEnd.ToString('yyyy-MM-dd HH:mm:ss'))" --author="yangbo" --pretty=format:"%H|%ad|%s|%b|%ae" --date=format:"%Y-%m-%d %H:%M:%S" 2>&1
+            } elseif ($dateRangeStart -and $dateRangeEnd) {
+                # Custom date range or history export
+                $commitsOutput = & git -c core.quotepath=false log --since="$($dateRangeStart)" --until="$($dateRangeEnd) 23:59:59" --author="yangbo" --pretty=format:"%H|%ad|%s|%b|%ae" --date=format:"%Y-%m-%d %H:%M:%S" 2>&1
             } else {
                 # Get last 7 days
                 $sinceDate = (Get-Date).AddDays(-7).ToString("yyyy-MM-dd")
-                $commitsOutput = & git -c core.quotepath=false log --since="$sinceDate" --pretty=format:"%H|%ad|%s|%b|%ae" --date=format:"%Y-%m-%d %H:%M:%S" 2>&1
+                $commitsOutput = & git -c core.quotepath=false log --since="$sinceDate" --author="yangbo" --pretty=format:"%H|%ad|%s|%b|%ae" --date=format:"%Y-%m-%d %H:%M:%S" 2>&1
             }
             
             # Convert output to UTF8 string if needed

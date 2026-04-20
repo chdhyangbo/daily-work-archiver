@@ -1,14 +1,17 @@
-# Work Archive Data - Do not commit personal reports
+# Work Archive - All personal data and reports (223 files)
 work-archive/daily-reports/
 work-archive/weekly-reports/
 work-archive/monthly-reports/
-work-archive/resume-builder/
-
-# Git Activity Logs
+work-archive/data/
 work-archive/archive-db/
-
-# Logs
+work-archive/handover/
+work-archive/project-archive/
+work-archive/reports/
+work-archive/resume-builder/
 work-archive/logs/
+work-archive/auto-tracking-config.md
+work-archive/*.json
+work-archive/*.md
 
 # OS Files
 .DS_Store
@@ -19,3 +22,6 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Dependencies
+docs-server/node_modules/

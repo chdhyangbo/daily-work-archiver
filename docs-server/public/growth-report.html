@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成长报告</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .header { border-bottom: 3px solid #667eea; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { color: #667eea; font-size: 32px; margin-bottom: 8px; }
+        .header p { color: #666; font-size: 16px; }
+        .back-btn { position: fixed; top: 20px; left: 20px; background: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; color: #667eea; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .back-btn:hover { background: #f5f5f5; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
+        .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-value { font-size: 36px; font-weight: bold; margin-bottom: 8px; }
+        .stat-label { font-size: 14px; opacity: 0.9; }
+        .section { margin: 30px 0; }
+        .section h2 { color: #333; font-size: 24px; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid #667eea; }
+        .milestone-list { display: grid; gap: 12px; }
+        .milestone-item { background: #f9f9f9; padding: 16px; border-radius: 8px; border-left: 4px solid #667eea; }
+        .milestone-title { font-weight: bold; color: #333; margin-bottom: 4px; }
+        .milestone-date { font-size: 14px; color: #666; }
+        .loading { text-align: center; padding: 60px; color: #999; }
+        .error { text-align: center; padding: 60px; color: #f44336; }
+        .empty { text-align: center; padding: 40px; color: #999; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div id="content">
+            <div class="loading">加载成长报告...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadReport() {
+            try {
+                const response = await fetch('/api/growth-report.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('content').innerHTML = renderReport(data);
+                } else {
+                    document.getElementById('content').innerHTML = '<div class="error">暂无成长报告数据</div>';
+                }
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="error">加载报告失败</div>';
+            }
+        }
+
+        function renderReport(data) {
+            if (!data.summary) return '<div class="empty">暂无数据，请运行 growth-tracker.ps1 生成报告</div>';
+
+            const s = data.summary;
+            let html = `
+                <div class="header">
+                    <h1>📈 个人成长报告</h1>
+                    <p>追踪您的技术成长和里程碑</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">${s.totalProjects || 0}</div>
+                        <div class="stat-label">参与项目</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${s.totalCommits || 0}</div>
+                        <div class="stat-label">总提交数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${s.milestonesReached || 0}</div>
+                        <div class="stat-label">达成里程碑</div>
+                    </div>
+                </div>
+            `;
+
+            if (data.milestones && data.milestones.length > 0) {
+                html += `
+                    <div class="section">
+                        <h2>🎯 里程碑</h2>
+                        <div class="milestone-list">
+                            ${data.milestones.map(m => `
+                                <div class="milestone-item">
+                                    <div class="milestone-title">${m.title}</div>
+                                    <div class="milestone-date">达成时间：${m.date}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (data.monthlyTrend && data.monthlyTrend.length > 0) {
+                html += `
+                    <div class="section">
+                        <h2>📊 月度趋势</h2>
+                        <div class="milestone-list">
+                            ${data.monthlyTrend.slice(-6).map(m => `
+                                <div class="milestone-item">
+                                    <div class="milestone-title">${m.month}</div>
+                                    <div class="milestone-date">${m.commits} 次提交，${m.projects} 个项目</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        loadReport();
+    </script>
+</body>
+</html>

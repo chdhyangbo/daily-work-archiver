@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>周报</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .header { border-bottom: 3px solid #667eea; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { color: #667eea; font-size: 32px; margin-bottom: 8px; }
+        .header .period { color: #666; font-size: 16px; }
+        .back-btn { position: fixed; top: 20px; left: 20px; background: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; color: #667eea; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .back-btn:hover { background: #f5f5f5; }
+        .section { margin: 30px 0; }
+        .section h2 { color: #333; font-size: 24px; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid #667eea; }
+        .section p, .section li { color: #666; line-height: 1.8; font-size: 16px; }
+        .section ul { padding-left: 24px; }
+        .section li { margin: 8px 0; }
+        .highlight { color: #667eea; font-weight: bold; }
+        .stat-box { background: #f9f9f9; padding: 16px; border-radius: 8px; margin: 12px 0; border-left: 4px solid #667eea; }
+        .loading { text-align: center; padding: 60px; color: #999; }
+        .error { text-align: center; padding: 60px; color: #f44336; }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div id="content">
+            <div class="loading">加载周报...</div>
+        </div>
+    </div>
+
+    <script>
+        async function loadReport() {
+            try {
+                const response = await fetch('/api/reports/latest-weekly');
+                if (response.ok) {
+                    const markdown = await response.text();
+                    document.getElementById('content').innerHTML = renderMarkdown(markdown);
+                } else {
+                    document.getElementById('content').innerHTML = '<div class="error">暂无周报</div>';
+                }
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="error">加载周报失败</div>';
+            }
+        }
+
+        function renderMarkdown(md) {
+            const lines = md.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach(line => {
+                if (line.startsWith('# ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="header"><h1>${line.substring(2)}</h1>`;
+                } else if (line.startsWith('**Period**')) {
+                    html += `<div class="period">${renderInlineMarkdown(line)}</div></div>`;
+                } else if (line.startsWith('## ')) {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<div class="section"><h2>${line.substring(3)}</h2>`;
+                } else if (line.startsWith('- ')) {
+                    if (!inList) { html += '<ul>'; inList = true; }
+                    html += `<li>${renderInlineMarkdown(line.substring(2))}</li>`;
+                } else if (line.trim() === '') {
+                    if (inList) { html += '</ul>'; inList = false; }
+                } else {
+                    if (inList) { html += '</ul>'; inList = false; }
+                    html += `<p>${renderInlineMarkdown(line)}</p>`;
+                }
+            });
+
+            if (inList) html += '</ul>';
+            return html;
+        }
+
+        function renderInlineMarkdown(text) {
+            return text
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                .replace(/`(.+?)`/g, '<code>$1</code>');
+        }
+
+        loadReport();
+    </script>
+</body>
+</html>

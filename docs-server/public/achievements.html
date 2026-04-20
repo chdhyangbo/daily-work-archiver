@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievement System</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; padding: 40px 0; color: white; }
+        .header h1 { font-size: 42px; margin-bottom: 10px; }
+        .header p { font-size: 18px; opacity: 0.9; }
+        .stats-bar { background: white; padding: 20px; border-radius: 12px; margin-bottom: 30px; display: flex; justify-content: space-around; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 32px; font-weight: bold; color: #667eea; }
+        .stat-label { font-size: 14px; color: #666; margin-top: 4px; }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .achievement-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); transition: transform 0.2s; position: relative; overflow: hidden; }
+        .achievement-card:hover { transform: translateY(-4px); }
+        .achievement-card.unlocked { border-left: 4px solid #4caf50; }
+        .achievement-card.locked { border-left: 4px solid #ccc; opacity: 0.5; filter: grayscale(100%); cursor: pointer; position: relative; }
+        .achievement-card.locked:hover { opacity: 0.8; }
+        .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            white-space: nowrap;
+            z-index: 10;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #333;
+        }
+        .achievement-card.locked:hover .tooltip { display: block; }
+        .achievement-icon { font-size: 48px; margin-bottom: 12px; }
+        .achievement-title { font-size: 20px; font-weight: bold; color: #333; margin-bottom: 8px; }
+        .achievement-desc { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 12px; }
+        .achievement-status { display: inline-block; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: bold; }
+        .status-unlocked { background: #e8f5e9; color: #4caf50; }
+        .status-locked { background: #f5f5f5; color: #999; }
+        .progress-bar { width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; margin-top: 12px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.3s; }
+        .back-btn { position: fixed; top: 20px; left: 20px; background: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; color: #667eea; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .back-btn:hover { background: #f5f5f5; }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🏆 成就系统</h1>
+            <p>追踪您的进度并解锁成就</p>
+        </div>
+
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item">
+                <div class="stat-value" id="totalUnlocked">0</div>
+                <div class="stat-label">已解锁</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="totalPoints">0</div>
+                <div class="stat-label">总积分</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="currentLevel">-</div>
+                <div class="stat-label">当前等级</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="nextMilestone">-</div>
+                <div class="stat-label">下一里程碑</div>
+            </div>
+        </div>
+
+        <div class="achievements-grid" id="achievementsGrid"></div>
+    </div>
+
+    <script>
+        const iconMap = {
+            'SEED': '🌱',
+            'SEEDLING': '🌿',
+            'TREE': '🌳',
+            'TROPHY': '🏆',
+            'FIRE': '🔥',
+            'LIGHTNING': '⚡',
+            'TARGET': '🎯',
+            'BRONZE': '🥉',
+            'SILVER': '🥈',
+            'GOLD': '🥇',
+            'DIAMOND': '💎',
+            'CROWN': '👑',
+            'LEGEND': '🌟'
+        };
+
+        async function loadAchievements() {
+            try {
+                const response = await fetch('/api/achievements.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    renderAchievements(data);
+                } else {
+                    document.getElementById('achievementsGrid').innerHTML = '<div style="text-align:center;color:white;padding:40px;">暂无成就数据</div>';
+                }
+            } catch (e) {
+                document.getElementById('achievementsGrid').innerHTML = '<div style="text-align:center;color:white;padding:40px;">加载成就数据失败</div>';
+            }
+        }
+
+        function renderAchievements(data) {
+            // Update stats
+            document.getElementById('totalUnlocked').textContent = data.achievements?.unlocked || 0;
+            document.getElementById('totalPoints').textContent = data.achievements?.totalPoints || 0;
+            document.getElementById('currentLevel').textContent = data.level?.current?.name || '-';
+            document.getElementById('nextMilestone').textContent = data.level?.next?.name || '-';
+
+            // Render achievements
+            const grid = document.getElementById('achievementsGrid');
+            const achievements = data.achievements?.list || [];
+            
+            if (achievements.length === 0) {
+                grid.innerHTML = '<div style="text-align:center;color:white;padding:40px;grid-column:1/-1;">暂无成就</div>';
+                return;
+            }
+
+            grid.innerHTML = achievements.map(ach => {
+                const isUnlocked = ach.unlocked || false;
+                const progress = ach.progress || 0;
+                const icon = iconMap[ach.icon] || ach.icon || '🏆';
+                return `
+                    <div class="achievement-card ${isUnlocked ? 'unlocked' : 'locked'}">
+                        ${!isUnlocked ? `<div class="tooltip">解锁条件: ${ach.requirement || '未知'}</div>` : ''}
+                        <div class="achievement-icon">${icon}</div>
+                        <div class="achievement-title">${ach.name || ach.id}</div>
+                        <div class="achievement-desc">${ach.description || ''}</div>
+                        <span class="achievement-status ${isUnlocked ? 'status-unlocked' : 'status-locked'}">
+                            ${isUnlocked ? '✓ 已解锁' : `进度: ${progress}%`}
+                        </span>
+                        ${!isUnlocked ? `
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progress}%"></div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        loadAchievements();
+    </script>
+</body>
+</html>

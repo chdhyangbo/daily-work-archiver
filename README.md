@@ -1,436 +1,1351 @@
-# AI 工作归档助手 - 使用说明
+# AI Work Archiver - 完整使用手册
 
-> 🎉 **恭喜！您的个人工作归档系统已安装完成！**
+> 🎉 **恭喜！您的全功能工作归档系统已安装完成！**
+> 
+> **开发完成**: 2026-04-17 | **总阶段**: 4/4 (100%) | **总工具**: 28个
 
-## ✅ 已安装组件
+---
 
-- ✅ **daily-work-archiver** - 自动工作归档和报告生成
-- ✅ **work-archive/** - 工作数据存储目录
-- ✅ **交接文档** - 项目交接文档（已初始化）
+## ⚡ 快速启动（3步开始使用）
 
-## 🚀 立即开始使用
+> **重要：所有命令都需要在 tools 目录下执行！**
 
-### 方式 1: 直接开始工作对话（最简单）
+### 🚀 方式1：交互式控制台（最推荐）
 
-**您只需要像平常一样和我对话，我就会自动归档！**
+启动可视化菜单，一键运行所有功能：
 
-例如：
+```powershell
+cd d:\work\ai\lingma\.lingma\skills\tools
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+.\main-console.ps1
 ```
-你：今天上午优化了登录模块，用 JWT 替代 Session，性能提升 30%
-我：✅ 已归档今日工作对话
+
+**功能菜单**:
+- 选项1: 运行所有工具（完整流程）
+- 选项2: 快速运行（跳过Git扫描）
+- 选项3: 运行指定阶段
+- 选项4: 查看数据总览
+- 选项5: 打开统一展示中心
+- 选项6: 验证所有功能
+- 选项7: 备份数据
+
+---
+
+### 📊 方式2：命令行一键运行
+
+```powershell
+cd d:\work\ai\lingma\.lingma\skills\tools
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+# 运行所有工具
+.\run-all-tools.ps1 -All
+
+# 快速运行（跳过Git扫描）
+.\run-all-tools.ps1 -Phase1 -Phase2 -Phase3 -Phase4 -Reports -Dashboard
+```
+
+---
+
+### 🌐 方式3：统一展示中心
+
+```powershell
+cd d:\work\ai\lingma\.lingma\skills\tools
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+# 运行所有工具并启动Web服务
+.\run-all-tools.ps1 -All
+.\run-phase4.ps1 -All
+```
+
+**访问地址**:
+- 统一展示中心: http://localhost:3456/overview ⭐
+- 主仪表板: http://localhost:3456/dashboard
+- 文档中心: http://localhost:3456/
+
+---
+
+### 📊 方式2：只生成报告
+
+```powershell
+cd d:\work\ai\lingma\.lingma\skills\tools
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+# 日报
+.\daily-report-enhanced.ps1
+
+# 周报
+.\weekly-report-enhanced.ps1
+
+# 月报
+.\monthly-dashboard.ps1
+
+# 年报
+.\annual-report-generator.ps1
+```
+
+---
+
+### 🏆 方式3：查看成就
+
+```powershell
+cd d:\work\ai\lingma\.lingma\skills\tools
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+# 检查成就
+.\achievement-system-core.ps1 -Action check
+
+# 列出所有成就
+.\achievement-system-core.ps1 -Action list
+```
+
+---
+
+### ⚙️ 方式4：备份数据
+
+```powershell
+cd d:\work\ai\lingma\.lingma\skills\tools
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+
+# 备份并压缩
+.\data-backup-restore.ps1 -Action backup -Compress
+```
+
+---
+
+### 🔧 常用命令速查表
+
+| 功能 | 命令 |
+|------|------|
+| **启动交互式控制台** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\main-console.ps1` |
+| **运行所有工具** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\run-all-tools.ps1 -All` |
+| **统一展示中心** | `http://localhost:3456/overview` |
+| **启动仪表板** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\run-phase4.ps1 -All` |
+| **验证所有功能** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\quick-verification.ps1` |
+| **生成日报** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\daily-report-enhanced.ps1` |
+| **生成周报** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\weekly-report-enhanced.ps1` |
+| **查看成就** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\achievement-system-core.ps1 -Action check` |
+| **备份数据** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\data-backup-restore.ps1 -Action backup -Compress` |
+| **生成交互图表** | `cd d:\work\ai\lingma\.lingma\skills\tools; .\chart-generator.ps1 -Type overview` |
+| **停止服务** | 在运行服务器的终端按 `Ctrl+C` |
+
+---
+
+### ❗ 常见错误解决
+
+**错误**: 无法将"run-phase4.ps1"项识别为 cmdlet
+
+**解决方法**: 
+```powershell
+# 1. 先切换到 tools 目录
+cd d:\work\ai\lingma\.lingma\skills\tools
+
+# 2. 然后执行（注意前面有 .\）
+.\run-phase4.ps1 -All
+```
+
+**错误**: 中文乱码
+
+**解决方法**: 
+```powershell
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+```
+
+---
+
+## 📋 目录
+
+1. [⚡ 快速启动](#-快速启动3步开始使用)
+2. [系统概览](#系统概览)
+3. [快速开始](#快速开始)
+4. [功能总览](#功能总览)
+5. [新增工具详细用法](#新增工具详细用法)
+6. [原有工具详细用法](#原有工具详细用法)
+7. [统一展示中心](#统一展示中心)
+8. [定时任务管理](#定时任务管理)
+9. [配置说明](#配置说明)
+10. [常见问题](#常见问题)
+
+---
+
+## 系统概览
+
+AI Work Archiver 是一个全功能的自动化工作追踪和报告系统，帮助您：
+
+- 📊 **自动追踪** Git 提交和工作活动
+- 📝 **智能生成** 日报/周报/月报/年报
+- 🤖 **AI分析** 工作模式和效率
+- 🏆 **游戏化** 成就徽章系统
+- 📈 **可视化** 数据图表和仪表板
+- 💾 **安全备份** 数据保护和隐私
+
+### 技术栈
+- **脚本**: PowerShell 5.1+
+- **Web**: Node.js + Express
+- **图表**: Chart.js
+- **数据**: JSON + Markdown
+
+---
+
+## 快速开始
+
+### 环境准备
+
+**重要：所有命令都需要在 tools 目录下执行！**
+
+```powershell
+# 1. 进入工具目录（这是必须的）
+cd d:\work\ai\lingma\.lingma\skills\tools
+
+# 2. 设置UTF-8编码（避免中文乱码）
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+```
+
+**目录说明**:
+- 📁 **tools/**: 所有PowerShell脚本都在这里执行
+- 📁 **docs/**: 文档目录
+- 📁 **docs-server/**: Web服务器目录
+- 📁 **work-archive/**: 数据存储目录
+
+### 方式 1: 启动Web仪表板（推荐）
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+```powershell
+# 启动仪表板和相关服务
+.\run-phase4.ps1 -All
+
+# 浏览器访问
+# http://localhost:3456/dashboard
+```
+
+**用途**: 查看个人工作数据、贡献热力图、成就徽章、统计图表
+
+**停止服务**: 在运行服务器的终端按 `Ctrl+C`
+
+### 方式 2: 生成报告
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+```powershell
+# 生成日报
+.\daily-report-enhanced.ps1
+
+# 生成周报
+.\weekly-report-enhanced.ps1
+
+# 生成月报
+.\monthly-dashboard.ps1
+
+# 生成年报
+.\annual-report-generator.ps1
+```
+
+**用途**: 自动生成工作摘要和绩效报告
+
+**输出位置**: 
+- 日报: `work-archive/daily-reports/YYYY-MM/`
+- 周报: `work-archive/weekly-reports/`
+- 月报: `work-archive/monthly-reports/`
+- 年报: `work-archive/annual-reports/`
+
+### 方式 3: 日常对话自动归档
+
+像平常一样和我对话，我会自动归档您的工作内容：
+
+```
+你：今天上午优化了登录模块，性能提升30%
+我：✅ 已归档今日工作
     - [FEATURE] [PERFORMANCE] 登录模块优化
-    - 成果：性能提升 30%
-    - 技术：JWT, Session
+    - 成果：性能提升30%
 ```
 
-### 方式 2: 使用命令生成报告
+---
 
-#### 日报命令
+## 功能总览
+
+### 完整工具清单（28+个脚本）
+
+#### 新增工具（2026-04-17）
+
+| 阶段 | 工具 | 用途 | 启动命令 |
+|------|------|------|----------|
+| **Phase 1** | commit-quality-scorer.ps1 | 提交质量评分 | `.\commit-quality-scorer.ps1` |
+| | workflow-automation.ps1 | 工作流自动化 | `.\workflow-automation.ps1 -Action check` |
+| **Phase 2** | work-advisor.ps1 | 智能工作建议 | `.\work-advisor.ps1` |
+| | growth-tracker.ps1 | 个人成长追踪 | `.\growth-tracker.ps1` |
+| | time-optimizer.ps1 | 时间优化助手 | `.\time-optimizer.ps1` |
+| **Phase 3** | change-impact-analyzer.ps1 | 变更影响分析 | `.\change-impact-analyzer.ps1` |
+| | project-health-monitor.ps1 | 项目健康监控 | `.\project-health-monitor.ps1` |
+| | project-retro-generator.ps1 | 项目复盘生成 | `.\project-retro-generator.ps1` |
+| **Phase 4** | smart-report-summarizer.ps1 | 智能报告摘要 | `.\smart-report-summarizer.ps1 -ReportType weekly` |
+| | achievement-card-generator.ps1 | 成就卡片生成 | `.\achievement-card-generator.ps1` |
+| | data-dashboard-api.ps1 | API数据生成 | `.\data-dashboard-api.ps1` |
+| **管理工具** | main-console.ps1 | 交互式控制台 | `.\main-console.ps1` ⭐ |
+| | run-all-tools.ps1 | 一键运行器 | `.\run-all-tools.ps1 -All` |
+| | quick-verification.ps1 | 快速验证 | `.\quick-verification.ps1` |
+
+---
+
+### 原有工具清单
+
+| 阶段 | 工具 | 用途 | 启动命令 |
+|------|------|------|----------|
+| **Phase 1** | project-tracker.ps1 | 项目进度追踪 | `.\project-tracker.ps1` |
+| | time-tracker.ps1 | 时间记录 | `.	ime-tracker.ps1` |
+| | daily-report-enhanced.ps1 | 日报生成 | `.\daily-report-enhanced.ps1` |
+| | git-work-tracker.ps1 | Git活动追踪 | `.\git-work-tracker.ps1 -TodayOnly` |
+| **Phase 2** | weekly-report-enhanced.ps1 | 周报生成 | `.\weekly-report-enhanced.ps1` |
+| | monthly-dashboard.ps1 | 月报仪表板 | `.\monthly-dashboard.ps1` |
+| | commit-classifier.ps1 | 提交分类 | `.\commit-classifier.ps1` |
+| **Phase 3** | work-pattern-analyzer.ps1 | 工作模式分析 | `.\work-pattern-analyzer.ps1` |
+| | commit-message-enhancer.ps1 | 提交质量检测 | `.\commit-message-enhancer.ps1` |
+| | duplicate-work-detector.ps1 | 重复代码检测 | `.\duplicate-work-detector.ps1` |
+| **Phase 4** | achievement-system-core.ps1 | 成就系统 | `.chievement-system-core.ps1 -Action check` |
+| | generate-dashboard-data.ps1 | 仪表板数据 | `.\generate-dashboard-data.ps1` |
+| | run-phase4.ps1 | 阶段4启动器 | `.
+un-phase4.ps1 -All` |
+| **Phase 5** | pdf-exporter.ps1 | PDF导出 | `.\pdf-exporter.ps1 -ExportAllDaily` |
+| | achievement-image-generator.ps1 | 成就卡片 | `.chievement-image-generator.ps1` |
+| | notification-sender.ps1 | 桌面通知 | `.
+otification-sender.ps1 -TestNotification` |
+| | data-backup-restore.ps1 | 数据备份 | `.\data-backup-restore.ps1 -Action backup` |
+| | annual-report-generator.ps1 | 年度报告 | `.nnual-report-generator.ps1` |
+| | run-phase5.ps1 | 阶段5启动器 | `.
+un-phase5.ps1 -All` |
+| **Phase 6** | chart-generator.ps1 | 交互式图表 | `.\chart-generator.ps1 -Type overview` |
+| **Phase 7** | security-tool.ps1 | 数据加密 | `.\security-tool.ps1 -Action encrypt` |
+
+---
+
+## 新增工具详细用法
+
+### 🌟 交互式控制台 (main-console.ps1) ⭐ 最推荐
+
+**用途**: 提供可视化菜单，一键运行所有功能
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+```powershell
+.\main-console.ps1
 ```
-/today-report
-或
-生成今天的日报
-或
-今天的工作总结
+
+**功能菜单**:
+- 选项1: 运行所有工具（完整流程）
+- 选项2: 快速运行（跳过Git扫描）
+- 选项3: 运行指定阶段
+- 选项4: 查看数据总览
+- 选项5: 打开统一展示中心
+- 选项6: 验证所有功能
+- 选项7: 备份数据
+
+### 📊 一键运行器 (run-all-tools.ps1)
+
+**用途**: 命令行一键运行所有或指定阶段工具
+
+```powershell
+# 运行所有工具
+.\run-all-tools.ps1 -All
+
+# 运行指定阶段
+.\run-all-tools.ps1 -Phase1
+.\run-all-tools.ps1 -Phase2
+.\run-all-tools.ps1 -Phase3
+.\run-all-tools.ps1 -Phase4
+
+# 只生成报告
+.\run-all-tools.ps1 -Reports
+
+# 只更新仪表板
+.\run-all-tools.ps1 -Dashboard
 ```
 
-#### 周报命令
-```
-/week-report
-或
-生成本周的周报
-或
-这周的工作总结
-```
+### ✅ 快速验证 (quick-verification.ps1)
 
-#### 交接文档命令
-```
-/update-handover    # 更新交接文档
-/view-handover      # 查看交接文档
+**用途**: 测试所有功能是否正常运行
+
+```powershell
+.\quick-verification.ps1
 ```
 
-#### 简历命令
+### 🌐 统一展示中心
+
+**用途**: 一站式查看所有分析数据
+
+**访问**: http://localhost:3456/overview
+
+**显示内容**:
+- 核心指标卡片
+- 质量分析
+- 成长追踪
+- 项目健康
+- 智能报告链接
+
+---
+
+## 统一展示中心
+
+### 访问地址
+
+1. **统一展示中心**: http://localhost:3456/overview ⭐
+2. **主仪表板**: http://localhost:3456/dashboard
+3. **文档中心**: http://localhost:3456/
+
+### 启动方式
+
+```powershell
+cd d:\work\ai\lingma\.lingma\skills\tools
+
+# 运行所有工具并启动Web服务
+.\run-all-tools.ps1 -All
+.\run-phase4.ps1 -All
 ```
-/generate-resume    # 生成简历素材
-或
-更新我的简历
+
+### 功能特色
+
+- 📊 核心指标实时显示
+- 🎨 精美卡片式设计
+- 🔄 自动刷新（60秒）
+- 📱 响应式布局
+- 🔗 快速跳转链接
+
+---
+
+## 原有工具详细用法
+
+## 第一阶段：核心功能
+
+### 1.1 Git工作追踪器 (git-work-tracker.ps1)
+
+**用途**: 扫描所有Git仓库，统计提交活动，生成工作记录
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 扫描指定目录下的所有Git仓库
+- 按作者过滤提交记录
+- 统计提交次数、代码变更量
+- 生成今日/本周/本月工作摘要
+
+**使用方法**:
+
+```powershell
+# 查看今日提交
+.\git-work-tracker.ps1 -TodayOnly
+
+# 查看本周提交
+.\git-work-tracker.ps1 -WeekOnly
+
+# 查看本月提交
+.\git-work-tracker.ps1 -MonthOnly
+
+# 查看所有提交
+.\git-work-tracker.ps1
 ```
 
-## 📁 文件存储位置
+**配置**:
+- 编辑脚本第25-28行修改扫描目录
+- 修改作者名称过滤器
 
-所有数据都存储在本地：
+**输出位置**: `work-archive/daily-reports/YYYY-MM/DD.md`
 
+---
+
+### 1.2 项目进度追踪器 (project-tracker.ps1)
+
+**用途**: 跟踪项目里程碑、工时、完成进度
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 创建 `.project-config.yml` 配置文件
+- 记录项目里程碑和预估工时
+- 自动计算完成百分比
+- 生成项目进度报告
+
+**使用方法**:
+
+```powershell
+# 初始化项目配置
+.\project-tracker.ps1 -Action init -ProjectPath "D:\work\code\my-project"
+
+# 更新进度
+.\project-tracker.ps1 -Action update -ProjectPath "D:\work\code\my-project" -Milestone "API开发" -Progress 80
+
+# 查看项目状态
+.\project-tracker.ps1 -Action status -ProjectPath "D:\work\code\my-project"
+
+# 列出所有项目
+.\project-tracker.ps1 -Action list
 ```
-d:\work\ai\lingma\.lingma\skills\
-├── daily-work-archiver/      # 技能主程序
-│   └── SKILL.md
-└── work-archive/              # 您的工作数据
-    ├── daily-reports/         # 日报存档
-    │   └── 2026-04/
-    │       └── [日期].md
-    ├── weekly-reports/        # 周报存档
-    │   └── [年份-W 周数].md
-    ├── handover/              # 交接文档
-    │   └── project-handover.md  ← 随时查阅
-    ├── resume-builder/        # 简历素材
-    │   └── projects.md
-    └── archive-db/            # 归档数据库
+
+**输出**: 项目配置文件保存在项目根目录
+
+---
+
+### 1.3 时间追踪器 (time-tracker.ps1)
+
+**用途**: 记录工作时间段、项目时间分配
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 开始/结束工作会话
+- 记录项目时间分配
+- 生成时间统计报告
+- 计算总工作时长
+
+**使用方法**:
+
+```powershell
+# 开始工作会话
+.\time-tracker.ps1 -Action start -Project "my-project" -Task "API开发"
+
+# 结束工作会话
+.\time-tracker.ps1 -Action stop
+
+# 查看今日时间记录
+.\time-tracker.ps1 -Action view -Date "2026-04-14"
+
+# 查看本周时间统计
+.\time-tracker.ps1 -Action summary -Week
+
+# 查看本月时间统计
+.\time-tracker.ps1 -Action summary -Month
 ```
 
-## 🤖 自动任务管理
+**输出位置**: `work-archive/data/time-tracking/YYYY-MM-DD.json`
 
-### 定时日报任务（推荐）
+---
 
-系统已配置 Windows 定时任务，每周一至周五 **下午 6:00** 自动扫描 Git 提交并生成日报。
+### 1.4 日报生成器 (daily-report-enhanced.ps1)
 
-#### 启用/安装定时任务
+**用途**: 自动生成详细的每日工作总结
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 汇总今日Git提交
+- 整合时间追踪数据
+- 提取项目进度更新
+- 生成格式化的日报Markdown
+
+**使用方法**:
+
+```powershell
+# 生成今日日报
+.\daily-report-enhanced.ps1
+
+# 生成指定日期日报
+.\daily-report-enhanced.ps1 -Date "2026-04-14"
+```
+
+**输出位置**: `work-archive/daily-reports/YYYY-MM/YYYY-MM-DD.md`
+
+---
+
+## 第二阶段：报告系统
+
+### 2.1 周报生成器 (weekly-report-enhanced.ps1)
+
+**用途**: 生成本周工作总结，包含燃尽图和时间分配
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 汇总本周所有Git提交
+- 生成ASCII燃尽图
+- 时间分配饼图
+- 项目进度汇总
+- 下周计划建议
+
+**使用方法**:
+
+```powershell
+# 生成本周周报
+.\weekly-report-enhanced.ps1
+
+# 生成指定周周报
+.\weekly-report-enhanced.ps1 -WeekNumber 16 -Year 2026
+```
+
+**输出位置**: `work-archive/weekly-reports/YYYY-WWW.md`
+
+---
+
+### 2.2 月度仪表板 (monthly-dashboard.ps1)
+
+**用途**: 生成月度绩效报告和关键指标
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 月度提交统计
+- 项目贡献分布
+- 工作类型分析
+- 绩效评分
+- 趋势对比
+
+**使用方法**:
+
+```powershell
+# 生成本月月报
+.\monthly-dashboard.ps1
+
+# 生成指定月份月报
+.\monthly-dashboard.ps1 -Month 4 -Year 2026
+```
+
+**输出位置**: `work-archive/monthly-reports/YYYY-MM.md`
+
+---
+
+### 2.3 提交分类器 (commit-classifier.ps1)
+
+**用途**: 自动识别和分类Git提交类型
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 识别提交类型（FEATURE/BUGFIX/REFACTOR等）
+- 统计各类型提交比例
+- 生成分类报告
+
+**使用方法**:
+
+```powershell
+# 分类今日提交
+.\commit-classifier.ps1 -Today
+
+# 分类本周提交
+.\commit-classifier.ps1 -Week
+
+# 分类指定日期范围
+.\commit-classifier.ps1 -StartDate "2026-04-01" -EndDate "2026-04-14"
+```
+
+---
+
+## 第三阶段：AI驱动功能
+
+### 3.1 工作模式分析器 (work-pattern-analyzer.ps1)
+
+**用途**: 分析工作习惯，识别高效时段
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 24小时工作分布分析
+- 高效时段识别
+- 专注时间统计
+- 上下文切换检测
+- 工作习惯建议
+
+**使用方法**:
+
+```powershell
+# 分析工作模式
+.\work-pattern-analyzer.ps1
+
+# 分析指定月份
+.\work-pattern-analyzer.ps1 -Month 4 -Year 2026
+```
+
+**输出**: 控制台显示分析报告和建议
+
+---
+
+### 3.2 提交信息增强器 (commit-message-enhancer.ps1)
+
+**用途**: 检测和评分Git提交信息质量
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 提交信息质量评分（A-D级）
+- 提供改进建议
+- 检查命名规范
+- 生成质量报告
+
+**使用方法**:
+
+```powershell
+# 检查今日提交质量
+.\commit-message-enhancer.ps1 -Today
+
+# 检查本周提交质量
+.\commit-message-enhancer.ps1 -Week
+
+# 检查历史提交
+.\commit-message-enhancer.ps1 -Days 30
+```
+
+---
+
+### 3.3 重复工作检测器 (duplicate-work-detector.ps1)
+
+**用途**: 检测代码库中的重复代码和工作
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- SimHash算法检测代码相似度
+- 识别重复功能实现
+- 生成重复代码报告
+- 提供重构建议
+
+**使用方法**:
+
+```powershell
+# 扫描重复代码
+.\duplicate-work-detector.ps1 -ProjectPath "D:\work\code\my-project"
+
+# 设置相似度阈值
+.\duplicate-work-detector.ps1 -ProjectPath "D:\work\code\my-project" -Threshold 0.85
+```
+
+**输出**: 重复代码检测报告
+
+---
+
+## 第四阶段：可视化与游戏化
+
+### 4.1 成就系统 (achievement-system-core.ps1)
+
+**用途**: 追踪工作成就，解锁徽章和等级
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 7个成就徽章（提交里程碑、连续打卡等）
+- 6级等级系统（Rookie → Legend）
+- 积分激励机制
+- 成就历史记录
+
+**成就列表**:
+| 徽章 | 名称 | 条件 | 积分 |
+|------|------|------|------|
+| SEED | Initial Commit | 首次提交 | +10 |
+| SEEDLING | Getting Started | 10次提交 | +20 |
+| TREE | Code Craftsman | 100次提交 | +50 |
+| TROPHY | Code Master | 1000次提交 | +200 |
+| FIRE | 3-Day Streak | 连续3天 | +15 |
+| LIGHTNING | Week Warrior | 连续7天 | +30 |
+| TARGET | Multi-tasker | 3个项目 | +30 |
+
+**等级系统**:
+| 等级 | 积分要求 | 图标 |
+|------|----------|------|
+| Code Rookie | 0+ | BRONZE |
+| Junior Dev | 100+ | SILVER |
+| Mid Dev | 300+ | GOLD |
+| Senior Dev | 600+ | DIAMOND |
+| Expert | 1000+ | CROWN |
+| Legend | 2000+ | LEGEND |
+
+**使用方法**:
+
+```powershell
+# 检查成就状态
+.\achievement-system-core.ps1 -Action check
+
+# 列出所有成就
+.\achievement-system-core.ps1 -Action list
+
+# 列出已解锁成就
+.\achievement-system-core.ps1 -Action unlocked
+
+# 重置成就数据
+.\achievement-system-core.ps1 -Action reset
+```
+
+**输出位置**: `work-archive/data/achievements/achievements.json`
+
+---
+
+### 4.2 仪表板数据生成器 (generate-dashboard-data.ps1)
+
+**用途**: 收集所有工作数据，生成仪表板所需的JSON
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 汇总Git统计数据
+- 计算成就积分
+- 生成时间分布数据
+- 准备可视化数据
+
+**使用方法**:
+
+```powershell
+# 生成仪表板数据
+.\generate-dashboard-data.ps1
+```
+
+**输出位置**: `work-archive/data/dashboard-data.json`
+
+---
+
+### 4.3 Web仪表板 (run-phase4.ps1)
+
+**用途**: 启动个人工作数据可视化仪表板
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 贡献热力图（GitHub风格）
+- 统计卡片展示
+- 项目分布图表
+- 成就徽章墙
+- 实时数据刷新
+
+**使用方法**:
+
+```powershell
+# 启动所有Phase 4功能
+.\run-phase4.ps1 -All
+
+# 只启动Web服务器
+.\run-phase4.ps1 -ServerOnly
+
+# 生成数据但不启动服务器
+.\run-phase4.ps1 -GenerateOnly
+
+# 查看服务器状态
+.\run-phase4.ps1 -Status
+```
+
+**访问地址**: http://localhost:3456/dashboard
+
+**停止服务器**: 在终端按 `Ctrl+C`
+
+---
+
+## 第五阶段：高级集成
+
+### 5.1 PDF导出器 (pdf-exporter.ps1)
+
+**用途**: 将Markdown报告导出为可打印的HTML/PDF
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- Markdown转HTML
+- 专业打印样式
+- 支持日报/周报批量导出
+- 表格和代码高亮
+
+**使用方法**:
+
+```powershell
+# 导出所有日报
+.\pdf-exporter.ps1 -ExportAllDaily
+
+# 导出所有周报
+.\pdf-exporter.ps1 -ExportAllWeekly
+
+# 导出指定文件
+.\pdf-exporter.ps1 -InputFile "path\to\report.md"
+```
+
+**输出位置**: `work-archive/exports/`
+
+**转换为PDF**: 在浏览器中打开HTML文件，按Ctrl+P，选择"另存为PDF"
+
+---
+
+### 5.2 成就卡片生成器 (achievement-image-generator.ps1)
+
+**用途**: 生成精美的成就分享卡片
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 渐变背景设计
+- 专业排版布局
+- 支持单个/批量生成
+- 适合社交媒体分享
+
+**使用方法**:
+
+```powershell
+# 生成所有成就卡片
+.\achievement-image-generator.ps1
+
+# 生成指定成就卡片
+.\achievement-image-generator.ps1 -AchievementId FIRE
+.\achievement-image-generator.ps1 -AchievementId LIGHTNING
+```
+
+**输出位置**: `work-archive/exports/`
+
+**分享**: 在浏览器打开HTML，截图或打印为PDF
+
+---
+
+### 5.3 桌面通知器 (notification-sender.ps1)
+
+**用途**: 发送Windows桌面通知（成就解锁、提醒等）
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- Windows气球通知
+- Toast通知（Win10/11）
+- 支持BurntToast模块
+- 自定义通知类型
+
+**使用方法**:
+
+```powershell
+# 测试通知
+.\notification-sender.ps1 -TestNotification
+
+# 发送自定义通知
+.\notification-sender.ps1 -Title "成就解锁" -Message "你获得了：连续7天打卡" -Type achievement
+
+# 发送提醒通知
+.\notification-sender.ps1 -Title "提醒" -Message "该生成周报了" -Type warning
+```
+
+**安装BurntToast（可选，用于更好的通知）**:
+```powershell
+Install-Module -Name BurntToast -Scope CurrentUser
+```
+
+---
+
+### 5.4 数据备份工具 (data-backup-restore.ps1)
+
+**用途**: 备份和恢复所有工作数据
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 自动时间戳备份
+- ZIP压缩支持
+- 完整数据恢复
+- 备份清单管理
+
+**使用方法**:
+
+```powershell
+# 创建备份
+.\data-backup-restore.ps1 -Action backup
+
+# 创建压缩备份
+.\data-backup-restore.ps1 -Action backup -Compress
+
+# 列出所有备份
+.\data-backup-restore.ps1 -Action list
+
+# 恢复备份
+.\data-backup-restore.ps1 -Action restore -BackupDir "path\to\backup"
+```
+
+**备份内容**: 日报、周报、月报、数据库、所有数据文件
+
+**备份位置**: `work-archive/backups/`
+
+---
+
+### 5.5 年度报告生成器 (annual-report-generator.ps1)
+
+**用途**: 生成年度的综合工作总结
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 年度提交统计
+- 月度活动图表
+- 项目分布分析
+- 工作类型统计
+- 代码变更汇总
+- 关键指标展示
+
+**使用方法**:
+
+```powershell
+# 生成当前年份年报
+.\annual-report-generator.ps1
+
+# 生成指定年份年报
+.\annual-report-generator.ps1 -Year 2026
+```
+
+**输出位置**: `work-archive/annual-reports/YYYY-annual-report.md`
+
+---
+
+### 5.6 阶段5启动器 (run-phase5.ps1)
+
+**用途**: 一键运行所有Phase 5功能
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**使用方法**:
+
+```powershell
+# 运行所有功能
+.\run-phase5.ps1 -All
+
+# 只导出PDF
+.\run-phase5.ps1 -ExportPDF -ExportAllDaily
+
+# 只生成成就卡片
+.\run-phase5.ps1 -GenerateCards
+
+# 只测试通知
+.\run-phase5.ps1 -TestNotify
+
+# 只备份数据
+.\run-phase5.ps1 -Backup -Compress
+
+# 只生成年报
+.\run-phase5.ps1 -AnnualReport -Year 2026
+```
+
+---
+
+## 第六阶段：数据可视化
+
+### 6.1 交互式图表生成器 (chart-generator.ps1)
+
+**用途**: 生成基于Chart.js的交互式数据可视化
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 月度提交柱状图
+- 工作类型环形图
+- 项目分布饼图
+- 时段活动折线图
+- 响应式布局设计
+
+**使用方法**:
+
+```powershell
+# 生成总览图表
+.\chart-generator.ps1 -Type overview
+
+# 生成指定年份图表
+.\chart-generator.ps1 -Type overview -Year 2026
+```
+
+**输出位置**: `work-archive/visualizations/YYYY-overview.html`
+
+**查看**: 在浏览器中打开HTML文件，图表支持交互和动画
+
+---
+
+## 第七阶段：安全与隐私
+
+### 7.1 数据安全工具 (security-tool.ps1)
+
+**用途**: 加密敏感数据，保护隐私信息
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**功能**:
+- 敏感信息自动检测（邮箱、卡号、密码、token等）
+- 文件加密/解密
+- 数据脱敏处理
+- XOR加密算法
+
+**使用方法**:
+
+```powershell
+# 加密文件
+.\security-tool.ps1 -Action encrypt -InputFile "report.md" -OutputFile "report.enc" -Password "yourpassword"
+
+# 解密文件
+.\security-tool.ps1 -Action decrypt -InputFile "report.enc" -OutputFile "report.md" -Password "yourpassword"
+```
+
+**检测模式**:
+- 邮箱地址 → `[EMAIL_REDACTED]`
+- 信用卡号 → `[CARD_REDACTED]`
+- 密码 → `password: [REDACTED]`
+- Token → `token: [REDACTED]`
+- API密钥 → `api_key: [REDACTED]`
+
+---
+
+## 定时任务管理
+
+### 自动日报生成任务
+
+系统可配置Windows定时任务，自动扫描Git并提交生成日报。
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+**安装/启用定时任务**:
 ```powershell
 cd d:\work\ai\lingma\.lingma\skills\tools
 .\setup-scheduled-task.ps1
 ```
 
-#### 禁用/卸载定时任务
+**卸载/禁用定时任务**:
 ```powershell
-cd d:\work\ai\lingma\.lingma\skills\tools
 .\setup-scheduled-task.ps1 -Uninstall
 ```
 
-#### 临时暂停定时任务
+**临时暂停**:
 ```powershell
 Disable-ScheduledTask -TaskName "Auto Daily Report Generator"
 ```
 
-#### 恢复定时任务
+**恢复运行**:
 ```powershell
 Enable-ScheduledTask -TaskName "Auto Daily Report Generator"
 ```
 
-#### 查看任务状态
+**查看状态**:
 ```powershell
 Get-ScheduledTask -TaskName "Auto Daily Report Generator" | Get-ScheduledTaskInfo
 ```
 
-#### 手动立即生成日报
+**手动执行**:
 ```powershell
-cd d:\work\ai\lingma\.lingma\skills\tools
 .\git-work-tracker.ps1 -TodayOnly
 ```
 
+**默认时间**: 周一至周五 下午6:00
+
 ---
 
-## ⚙️ 配置与查看
+## 配置说明
 
-### 如何更改 Git 爬取目录
+### 修改Git扫描目录
 
-系统默认扫描 `D:\work\code` 和 `D:\work\codepos` 下的所有 Git 仓库。如果您需要更改扫描目录，请按以下步骤操作：
+**文件位置**: `d:\work\ai\lingma\.lingma\skills\tools\git-work-tracker.ps1`
 
-1. 打开脚本文件：`tools\git-work-tracker.ps1`
-2. 找到第 25-28 行左右的 `$projectDirs` 配置项：
+1. 打开文件: `tools\git-work-tracker.ps1`
+2. 找到第25-28行的 `$projectDirs` 配置:
 ```powershell
-# Project root directories
 $projectDirs = @(
     "D:\work\code",
     "D:\work\codepos"
 )
 ```
-3. 将其修改为您自己的项目根目录（支持多个目录）：
+3. 修改为您的项目目录:
 ```powershell
 $projectDirs = @(
     "C:\Your\Project\Path\1",
     "D:\Your\Project\Path\2"
 )
 ```
-4. 保存文件后，重新运行自动任务即可生效。
+4. 保存并重新运行
 
-### 日报和周报查看位置
+### 修改作者过滤器
 
-生成的报告文件均保存在本地 `work-archive` 目录下，您可以随时通过文件管理器或编辑器打开查看：
+**文件位置**: 所有PowerShell脚本中搜索 `yangbo` 并替换为您的Git用户名。
 
-#### 📅 日报位置
-```
-work-archive/daily-reports/YYYY-MM/YYYY-MM-DD.md
-```
-- **打开方式**：在文件管理器中导航至 `work-archive\daily-reports\`，按月份进入对应文件夹即可查看当日报告。
-
-#### 📆 周报位置
-```
-work-archive/weekly-reports/YYYY-WWW.md
-```
-- **打开方式**：在文件管理器中导航至 `work-archive\weekly-reports\`，文件名格式为 `年份-W周数.md`。
+**涉及文件**: `tools/` 目录下的所有.ps1脚本
 
 ---
 
-## 💡 使用技巧
-
-### 1. 自动归档最佳实践
-
-**高质量输入 = 高质量报告**
-
-✅ **好的描述**:
-```
-"今天上午花了 3 个小时优化用户登录模块，使用 JWT 替代了原来的 
-Session 机制，接口响应时间从 500ms 降至 50ms，性能提升约 90%"
-```
-
-❌ **不够好的描述**:
-```
-"做了点优化"
-```
-
-### 2. 定期生成报告
-
-**推荐节奏**:
-- 📅 **每天下班前**: `/today-report` 生成日报
-- 📆 **每周五下午**: `/week-report` 生成周报  
-- 📄 **每月最后一天**: 查看月度总结
-- 🔄 **项目完成后**: `/update-handover` 更新交接文档
-- 💼 **准备跳槽时**: `/generate-resume` 生成简历
-
-### 3. 善用搜索
+## 数据目录结构
 
 ```
-/search-archive JWT           # 搜索所有 JWT 相关内容
-/search-archive [FEATURE]     # 搜索所有新功能开发
-/search-archive 本周 优化     # 搜索本周的优化工作
+work-archive/
+├── daily-reports/          # 日报
+│   └── YYYY-MM/
+│       └── YYYY-MM-DD.md
+├── weekly-reports/         # 周报
+│   └── YYYY-WWW.md
+├── monthly-reports/        # 月报
+│   └── YYYY-MM.md
+├── annual-reports/         # 年报
+│   └── YYYY-annual-report.md
+├── archive-db/             # 归档数据库
+├── data/
+│   ├── achievements/       # 成就数据
+│   │   └── achievements.json
+│   ├── time-tracking/      # 时间记录
+│   │   └── YYYY-MM-DD.json
+│   └── dashboard-data.json # 仪表板数据
+├── exports/                # 导出文件
+│   ├── PDF/HTML报告
+│   └── 成就卡片
+├── backups/                # 数据备份
+│   └── backup_YYYYMMDD_HHMMSS/
+└── visualizations/         # 可视化图表
+    └── YYYY-overview.html
 ```
 
-## 🎯 典型使用场景
+---
 
-### 场景 1: 日常工作记录
+## 常见问题
 
-**早上开始工作**:
-```
-你：早，今天计划完成登录模块的 JWT 改造
-我：✅ 已记录今日计划
-    - [PLANNING] [HIGH] 登录模块 JWT 改造
-    - 状态：TODO
-```
-
-**工作中**:
-```
-你：刚完成了 JWT 工具类的实现，遇到了 token 刷新的问题，
-   通过滑动过期机制解决了，性能提升很明显
-我：✅ 已归档工作进展
-    - [FEATURE] [DONE] JWT 工具类实现
-    - [BUGFIX] [DONE] Token 刷新问题
-    - 关键技术：滑动过期机制
-    - 成果：性能显著提升
-```
-
-**下班前**:
-```
-你：/today-report
-我：📊 正在生成今日日报...
-   [自动生成详细日报]
-   📄 已保存至：daily-reports/2026-04/2026-04-02.md
-```
-
-### 场景 2: 项目进度追踪
-
-**项目讨论**:
-```
-你：Auth System 项目整体进度已经 85% 了，
-   还剩双重验证功能没完成，预计下周上线
-我：✅ 已更新项目进度
-    - 项目：Auth System
-    - 进度：70% → 85%
-    - 待完成：双重验证
-    - 预计：下周上线
-```
-
-**查看进度**:
-```
-你：Auth System 项目进展如何？
-我：根据归档记录，Auth System 项目当前进度 85%
-   
-   已完成:
-   ✅ JWT 改造 (100%)
-   ✅ Token 管理 (100%)
-   ✅ 短信验证码 (100%)
-   
-   进行中:
-   🔄 双重验证 (60%)
-   
-   详细信息请查看：handover/project-handover.md
-```
-
-### 场景 3: 问题解决记录
-
-**遇到问题**:
-```
-你：线上出现 token 频繁失效的问题，用户反馈很多
-我：✅ 已记录生产问题
-    - [BUG] [HIGH] [ONLINE] Token 频繁失效
-    - 影响：用户体验
-    - 优先级：高
-```
-
-**解决问题**:
-```
-你：token 失效问题定位到了，是 Redis 缓存策略问题，
-   已经调整为双层缓存，问题解决了
-我：✅ 已记录问题解决方案
-    - 根因：Redis 缓存策略不当
-    - 方案：双层缓存架构
-    - 状态：✅ 已解决
-    - 经验：已添加到 FAQ
-```
-
-### 场景 4: 技术学习记录
-
-**学习新技术**:
-```
-你：最近在研究 JWT 的最佳实践，看了几篇不错的文章
-我：✅ 已记录学习内容
-    - [LEARNING] JWT 最佳实践
-    - 类型：技术研究
-    - 应用：Auth System 项目
-```
-
-**分享学习心得**:
-```
-你：JWT 的滑动过期机制设计很巧妙，既保证安全又兼顾体验
-我：✅ 已记录技术洞察
-    - 知识点：JWT 滑动过期
-    - 理解：安全与体验的平衡
-    - 应用：已用于登录模块
-```
-
-## 📊 自动化功能说明
-
-### 自动识别的工作内容
-
-当您提到以下内容时，我会自动归档：
-
-1. **任务执行**
-   - "开发了 XXX"、"实现了 XXX"
-   - "修复了 XXX"、"优化了 XXX"
-   - "完成了 XXX"、"测试了 XXX"
-
-2. **成果展示**
-   - "性能提升了 X%"
-   - "效率提高了"
-   - "减少了/降低了 XXX"
-
-3. **问题记录**
-   - "遇到一个问题..."
-   - "发现一个 bug..."
-   - "原因是..."、"解决方案是..."
-
-4. **计划安排**
-   - "明天要..."
-   - "接下来计划..."
-   - "准备做..."
-
-### 自动提取的信息
-
-- ⏰ **时间戳**: 自动记录对话时间
-- 🏷️ **标签**: 自动分类（功能/修复/文档等）
-- 📊 **数据**: 自动提取量化成果（性能提升 X%）
-- 🔧 **技术**: 自动识别使用的技术栈
-- 📁 **项目**: 自动关联相关项目
-
-## 🔒 数据安全
-
-### 本地存储
-- ✅ 所有数据存储在本地
-- ✅ 不会上传到外部服务器
-- ✅ 完全由您控制
-
-### 敏感信息处理
-- ✅ 自动识别密码、密钥等敏感信息
-- ✅ 支持手动标记私密内容
-- ✅ 可选择性包含在报告中
-
-### 备份建议
+### Q: 应该在哪里执行命令？
+**A**: **所有PowerShell命令都需要在 tools 目录下执行！**
 ```powershell
-# 定期备份工作数据
-cd d:\work\ai\lingma\.lingma\skills
-Copy-Item -Path work-archive -Destination D:\Backup\work-archive -Recurse
+cd d:\work\ai\lingma\.lingma\skills\tools
+# 然后执行命令
 ```
 
-## ❓ 常见问题
+### Q: 为什么命令找不到文件？
+**A**: 请确认当前目录是否正确：
+```powershell
+# 检查当前目录
+pwd
+# 应该显示: D:\work\ai\lingma\.lingma\skills\tools
 
-### Q: 如何确保归档准确性？
+# 如果不在正确目录，请切换
+Set-Location d:\work\ai\lingma\.lingma\skills\tools
+```
+
+### Q: 如何确保没有中文乱码？
+**A**: 每次运行脚本前执行:
+```powershell
+# 在 tools 目录下执行
+cd d:\work\ai\lingma\.lingma\skills\tools
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+```
+
+### Q: Web仪表板无法访问？
 **A**: 
-1. 详细描述工作内容（包含具体数据和成果）
-2. 及时检查生成的报告
-3. 发现错误立即纠正
+```powershell
+# 1. 进入 tools 目录
+cd d:\work\ai\lingma\.lingma\skills\tools
 
-### Q: 可以同时在多个项目工作吗？
-**A**: 可以！系统会自动识别和分类不同项目的对话。
+# 2. 启动服务
+.\run-phase4.ps1 -All
 
-### Q: 如何导出归档数据？
-**A**: 使用命令 `/export-archive [日期范围]`
+# 3. 检查端口3456是否被占用
+netstat -ano | findstr :3456
 
-### Q: 数据会保存多久？
-**A**: 默认永久保存，您可以手动清理或删除。
+# 4. 访问 http://localhost:3456/dashboard
+```
 
-### Q: 如何查看历史归档？
+### Q: 成就系统没有数据？
 **A**: 
-```
-/search-archive 上个月的项目    # 搜索上月内容
-/search-archive [FEATURE]      # 搜索所有功能开发
-/view-handover                 # 查看交接文档
-```
+```powershell
+# 在 tools 目录下执行
+cd d:\work\ai\lingma\.lingma\skills\tools
 
-## 🎯 下一步行动
+# 先运行数据生成器
+.\generate-dashboard-data.ps1
 
-### 现在开始您的第一次工作归档吧！
-
-**选项 1: 告诉我您当前的工作**
-```
-"我正在负责 XXX 项目，主要做 XXX 开发"
+# 再检查成就
+.\achievement-system-core.ps1 -Action check
 ```
 
-**选项 2: 记录今天已完成的工作**
-```
-"今天上午我做了 XXX，下午做了 XXX"
-```
-
-**选项 3: 直接生成今天的日报**
-```
-"/today-report"
+### Q: 如何备份所有数据？
+**A**:
+```powershell
+# 在 tools 目录下执行
+cd d:\work\ai\lingma\.lingma\skills\tools
+.\data-backup-restore.ps1 -Action backup -Compress
 ```
 
-### 推荐的首次使用流程
+### Q: 如何查看所有成就？
+**A**:
+```powershell
+# 在 tools 目录下执行
+cd d:\work\ai\lingma\.lingma\skills\tools
+.\achievement-system-core.ps1 -Action list
+```
 
-1. **介绍您的工作背景**（可选）
-   ```
-   "我是一名 Java 开发工程师，主要负责 Auth System 项目开发"
-   ```
+### Q: 定时任务不执行？
+**A**:
+```powershell
+# 在 tools 目录下执行
+cd d:\work\ai\lingma\.lingma\skills\tools
 
-2. **记录当前的工作内容**
-   ```
-   "今天主要完成了 XXX 功能的开发，遇到了 XXX 问题并解决了"
-   ```
+# 1. 检查任务状态
+Get-ScheduledTask -TaskName "Auto Daily Report Generator"
 
-3. **生成第一份日报**
-   ```
-   "/today-report"
-   ```
+# 2. 手动执行测试
+.\git-work-tracker.ps1 -TodayOnly
 
-4. **查看交接文档**
-   ```
-   "/view-handover"
-   ```
+# 3. 重新安装任务
+.\setup-scheduled-task.ps1 -Uninstall
+.\setup-scheduled-task.ps1
+```
 
-5. **养成习惯**
-   - 每天工作对话 → 自动归档
-   - 下班前生成日报
-   - 周五生成周报
-   - 随时查看交接文档
+### Q: 如何自定义报告内容？
+**A**: 
+```powershell
+# 在 tools 目录下找到对应脚本
+cd d:\work\ai\lingma\.lingma\skills\tools
+
+# 用文本编辑器打开
+notepad daily-report-enhanced.ps1
+
+# 修改模板部分后保存
+```
 
 ---
 
-## 🎉 让我们开始吧！
+## 快速参考卡
 
-**现在，请告诉我：**
+### 每日工作流
 
-您当前正在做什么工作？或者今天完成了什么任务？
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
 
-我会立即开始自动归档，并为您生成第一份工作日报！💪
+```powershell
+# 早上
+cd d:\work\ai\lingma\.lingma\skills\tools
+.\run-phase4.ps1 -Status
+
+# 工作中 - 自动归档对话
+
+# 下班前
+.\daily-report-enhanced.ps1
+.\achievement-system-core.ps1 -Action check
+```
+
+### 每周工作流
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+```powershell
+# 周五
+cd d:\work\ai\lingma\.lingma\skills\tools
+.\weekly-report-enhanced.ps1
+.\data-backup-restore.ps1 -Action backup
+```
+
+### 每月工作流
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+```powershell
+# 月末
+cd d:\work\ai\lingma\.lingma\skills\tools
+.\monthly-dashboard.ps1
+.\pdf-exporter.ps1 -ExportAllDaily -ExportAllWeekly
+```
+
+### 每年工作流
+
+**执行目录**: `d:\work\ai\lingma\.lingma\skills\tools`
+
+```powershell
+# 年末
+cd d:\work\ai\lingma\.lingma\skills\tools
+.\annual-report-generator.ps1
+.\chart-generator.ps1 -Type overview
+```
 
 ---
 
-**技术支持**: 如有任何问题，随时询问我。这个系统会随着您的使用越来越智能！🚀
+## 技术支持
+
+- **文档**: 查看 `docs/` 目录下的详细文档
+- **ROADMAP**: `ROADMAP.md` - 项目路线图
+- **进度报告**: `docs/progress-report.md`
+- **完成总结**: `docs/project-complete-summary.md`
+
+---
+
+**开发完成**: 2026-04-14  
+**总工具数**: 28个PowerShell脚本  
+**总阶段**: 7/7 (100%)  
+**代码行数**: ~5,000+ 行
+
+**🎉 开始使用吧！如有任何问题，随时询问！**

@@ -1,0 +1,230 @@
+﻿{
+    "generatedAt":  "2026-04-17 15:33:40",
+    "summary":  {
+                    "totalProjects":  20,
+                    "totalCommits":  562,
+                    "milestonesReached":  3
+                },
+    "techTimeline":  [
+                         {
+                             "project":  "intelligence-allot",
+                             "firstCommit":  "2026-03-10",
+                             "lastCommit":  "2026-04-03",
+                             "totalCommits":  4
+                         },
+                         {
+                             "project":  "collaborativeSupport",
+                             "firstCommit":  "2025-05-14",
+                             "lastCommit":  "2025-12-12",
+                             "totalCommits":  26
+                         },
+                         {
+                             "project":  "dsl-management",
+                             "firstCommit":  "2026-01-07",
+                             "lastCommit":  "2026-03-13",
+                             "totalCommits":  14
+                         },
+                         {
+                             "project":  "fast-purchase",
+                             "firstCommit":  "2026-03-10",
+                             "lastCommit":  "2026-03-13",
+                             "totalCommits":  2
+                         },
+                         {
+                             "project":  "my-live-manage",
+                             "firstCommit":  "2026-03-26",
+                             "lastCommit":  "2026-03-26",
+                             "totalCommits":  1
+                         },
+                         {
+                             "project":  "dsl-design-system",
+                             "firstCommit":  "2025-06-06",
+                             "lastCommit":  "2025-06-09",
+                             "totalCommits":  7
+                         },
+                         {
+                             "project":  "baike-desktop-client",
+                             "firstCommit":  "2025-04-21",
+                             "lastCommit":  "2026-04-03",
+                             "totalCommits":  170
+                         },
+                         {
+                             "project":  "combination-medication",
+                             "firstCommit":  "2025-10-15",
+                             "lastCommit":  "2025-10-24",
+                             "totalCommits":  2
+                         },
+                         {
+                             "project":  "jm-bank-card",
+                             "firstCommit":  "2025-06-27",
+                             "lastCommit":  "2025-07-21",
+                             "totalCommits":  15
+                         },
+                         {
+                             "project":  "alliance-admin-web",
+                             "firstCommit":  "2025-08-22",
+                             "lastCommit":  "2025-09-23",
+                             "totalCommits":  21
+                         },
+                         {
+                             "project":  "h5-ct-admin",
+                             "firstCommit":  "2025-09-10",
+                             "lastCommit":  "2025-09-19",
+                             "totalCommits":  4
+                         },
+                         {
+                             "project":  "franchise-operation",
+                             "firstCommit":  "2025-08-15",
+                             "lastCommit":  "2025-09-23",
+                             "totalCommits":  17
+                         },
+                         {
+                             "project":  "activity-award",
+                             "firstCommit":  "2025-08-01",
+                             "lastCommit":  "2025-08-01",
+                             "totalCommits":  1
+                         },
+                         {
+                             "project":  "operation",
+                             "firstCommit":  "2025-05-21",
+                             "lastCommit":  "2026-03-24",
+                             "totalCommits":  225
+                         },
+                         {
+                             "project":  "order-reveal",
+                             "firstCommit":  "2026-03-25",
+                             "lastCommit":  "2026-04-17",
+                             "totalCommits":  21
+                         },
+                         {
+                             "project":  "shen-part-time",
+                             "firstCommit":  "2025-12-22",
+                             "lastCommit":  "2025-12-24",
+                             "totalCommits":  3
+                         },
+                         {
+                             "project":  "jm-channels",
+                             "firstCommit":  "2025-07-29",
+                             "lastCommit":  "2025-11-05",
+                             "totalCommits":  10
+                         },
+                         {
+                             "project":  "gis-site-selection",
+                             "firstCommit":  "2025-10-09",
+                             "lastCommit":  "2026-04-09",
+                             "totalCommits":  14
+                         },
+                         {
+                             "project":  "video-cut",
+                             "firstCommit":  "2025-04-25",
+                             "lastCommit":  "2025-04-25",
+                             "totalCommits":  2
+                         },
+                         {
+                             "project":  "price-tag-print",
+                             "firstCommit":  "2026-03-09",
+                             "lastCommit":  "2026-03-13",
+                             "totalCommits":  3
+                         }
+                     ],
+    "monthlyTrend":  [
+                         {
+                             "month":  "2025-04",
+                             "commits":  11,
+                             "projects":  2,
+                             "topProject":  "baike-desktop-client"
+                         },
+                         {
+                             "month":  "2025-05",
+                             "commits":  16,
+                             "projects":  3,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2025-06",
+                             "commits":  81,
+                             "projects":  4,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2025-07",
+                             "commits":  69,
+                             "projects":  5,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2025-08",
+                             "commits":  37,
+                             "projects":  6,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2025-09",
+                             "commits":  61,
+                             "projects":  7,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2025-10",
+                             "commits":  39,
+                             "projects":  4,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2025-11",
+                             "commits":  31,
+                             "projects":  4,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2025-12",
+                             "commits":  59,
+                             "projects":  5,
+                             "topProject":  "baike-desktop-client"
+                         },
+                         {
+                             "month":  "2026-01",
+                             "commits":  51,
+                             "projects":  3,
+                             "topProject":  "baike-desktop-client"
+                         },
+                         {
+                             "month":  "2026-02",
+                             "commits":  36,
+                             "projects":  3,
+                             "topProject":  "baike-desktop-client"
+                         },
+                         {
+                             "month":  "2026-03",
+                             "commits":  46,
+                             "projects":  9,
+                             "topProject":  "operation"
+                         },
+                         {
+                             "month":  "2026-04",
+                             "commits":  25,
+                             "projects":  4,
+                             "topProject":  "order-reveal"
+                         }
+                     ],
+    "milestones":  [
+                       {
+                           "type":  "10-commits",
+                           "title":  "First 10 commits",
+                           "date":  "2025-04",
+                           "description":  "Completed 10 commits"
+                       },
+                       {
+                           "type":  "100-commits",
+                           "title":  "100 commits milestone",
+                           "date":  "2025-06",
+                           "description":  "Reached 100 total commits"
+                       },
+                       {
+                           "type":  "500-commits",
+                           "title":  "500 commits milestone",
+                           "date":  "2026-03",
+                           "description":  "Reached 500 total commits"
+                       }
+                   ]
+}

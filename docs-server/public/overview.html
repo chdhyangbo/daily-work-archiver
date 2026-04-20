@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Work Archiver - 统一展示中心</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f5f5f5; padding: 20px; }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .header { text-align: center; padding: 30px 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .header h1 { font-size: 32px; margin-bottom: 10px; }
+        .header p { font-size: 16px; opacity: 0.9; }
+        .status-bar { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .status-bar .timestamp { color: #666; font-size: 14px; }
+        .status-bar .refresh-btn { background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+        .status-bar .refresh-btn:hover { background: #5568d3; }
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+        .card-header { display: flex; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #f0f0f0; }
+        .card-icon { font-size: 32px; margin-right: 12px; }
+        .card-title { font-size: 20px; font-weight: bold; color: #333; }
+        .card-body { color: #666; line-height: 1.6; }
+        .stat-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f5f5f5; }
+        .stat-label { color: #888; }
+        .stat-value { color: #333; font-weight: bold; }
+        .stat-value.good { color: #4caf50; }
+        .stat-value.warning { color: #ff9800; }
+        .stat-value.danger { color: #f44336; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; margin: 2px; }
+        .badge-success { background: #e8f5e9; color: #4caf50; }
+        .badge-warning { background: #fff3e0; color: #ff9800; }
+        .badge-danger { background: #ffebee; color: #f44336; }
+        .badge-info { background: #e3f2fd; color: #2196f3; }
+        .progress-bar { width: 100%; height: 8px; background: #f0f0f0; border-radius: 4px; overflow: hidden; margin: 8px 0; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); transition: width 0.3s; }
+        .link-btn { display: inline-block; margin-top: 12px; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; }
+        .link-btn:hover { background: #5568d3; }
+        .section-title { font-size: 24px; color: #333; margin: 30px 0 20px; padding-left: 12px; border-left: 4px solid #667eea; }
+        .milestone-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 12px; }
+        .milestone-item { background: #f9f9f9; padding: 12px; border-radius: 8px; border-left: 3px solid #667eea; }
+        .milestone-title { font-weight: bold; color: #333; margin-bottom: 4px; }
+        .milestone-date { font-size: 12px; color: #999; }
+        .health-status { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; }
+        .health-healthy { background: #4caf50; }
+        .health-moderate { background: #ff9800; }
+        .health-atrisk { background: #f44336; }
+        .health-critical { background: #d32f2f; }
+        .empty-state { text-align: center; padding: 40px; color: #999; }
+        .empty-state .icon { font-size: 48px; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 AI Work Archiver - 统一展示中心</h1>
+            <p>一站式查看所有工作分析数据和报告</p>
+        </div>
+
+        <div class="status-bar">
+            <div>
+                <div style="font-weight: bold; color: #333; margin-bottom: 4px;">数据状态</div>
+                <div class="timestamp" id="lastUpdate">最后更新: 加载中...</div>
+            </div>
+            <button class="refresh-btn" onclick="loadAllData()">🔄 刷新数据</button>
+        </div>
+
+        <h2 class="section-title">📊 核心指标</h2>
+        <div class="cards-grid" id="coreMetrics"></div>
+
+        <h2 class="section-title">🎖️ 质量分析</h2>
+        <div class="cards-grid" id="qualitySection"></div>
+
+        <h2 class="section-title">📈 成长追踪</h2>
+        <div class="cards-grid" id="growthSection"></div>
+
+        <h2 class="section-title">💚 项目健康</h2>
+        <div class="cards-grid" id="healthSection"></div>
+
+        <h2 class="section-title">📝 智能报告</h2>
+        <div class="cards-grid" id="reportsSection"></div>
+    </div>
+
+    <script>
+        const data = {
+            dashboard: null,
+            quality: null,
+            growth: null,
+            health: null
+        };
+
+        async function loadData(url) {
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (e) {
+                console.warn(`Failed to load ${url}:`, e);
+            }
+            return null;
+        }
+
+        async function loadAllData() {
+            document.getElementById('lastUpdate').textContent = '最后更新: 加载中...';
+
+            data.dashboard = await loadData('/dashboard-data.json');
+            data.quality = await loadData('/api/quality-report.json');
+            data.growth = await loadData('/api/growth-report.json');
+            data.health = await loadData('/api/health-report.json');
+
+            renderCoreMetrics();
+            renderQualitySection();
+            renderGrowthSection();
+            renderHealthSection();
+            renderReportsSection();
+
+            const now = new Date().toLocaleString('zh-CN');
+            document.getElementById('lastUpdate').textContent = `最后更新: ${now}`;
+        }
+
+        function renderCoreMetrics() {
+            const container = document.getElementById('coreMetrics');
+            const d = data.dashboard;
+
+            if (!d) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📭</div><div>暂无数据</div></div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📝</div>
+                        <div class="card-title">提交统计</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">总提交数</span>
+                            <span class="stat-value">${d.stats.totalCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">今日提交</span>
+                            <span class="stat-value good">${d.stats.todayCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">本周提交</span>
+                            <span class="stat-value">${d.stats.weekCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">连续天数</span>
+                            <span class="stat-value good">${d.stats.currentStreak} 天</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-title">质量评分</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">平均分</span>
+                            <span class="stat-value ${d.qualityScore && d.qualityScore >= 80 ? 'good' : 'warning'}">${d.qualityScore || 'N/A'}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${d.qualityScore || 0}%"></div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            ${d.qualityLevels ? Object.entries(d.qualityLevels).map(([level, count]) => `<span class="badge badge-info">${level}: ${count}</span>`).join('') : ''}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🏆</div>
+                        <div class="card-title">成就系统</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">已解锁</span>
+                            <span class="stat-value good">${d.achievements ? d.achievements.unlocked : 0}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">总积分</span>
+                            <span class="stat-value">${d.achievements ? d.achievements.totalPoints : 0}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">当前等级</span>
+                            <span class="stat-value">${d.achievements ? d.achievements.level : 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQualitySection() {
+            const container = document.getElementById('qualitySection');
+            const q = data.quality;
+
+            if (!q || !q.summary) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📊</div><div>暂无质量数据</div><div style="margin-top:8px;font-size:12px;">运行: commit-quality-scorer.ps1</div></div>';
+                return;
+            }
+
+            const s = q.summary;
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">质量总览</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">评分提交数</span>
+                            <span class="stat-value">${s.totalCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">平均分</span>
+                            <span class="stat-value ${s.averageScore >= 80 ? 'good' : 'warning'}">${s.averageScore}/100</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${s.averageScore}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🏅</div>
+                        <div class="card-title">等级分布</div>
+                    </div>
+                    <div class="card-body">
+                        ${Object.entries(s.levelDistribution).map(([level, count]) => {
+                            const colors = {S: '#ffd700', A: '#4caf50', B: '#2196f3', C: '#ff9800', D: '#f44336'};
+                            return `<div class="stat-row"><span class="stat-label">${level}级</span><span class="stat-value" style="color:${colors[level]}">${count} 个</span></div>`;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📈</div>
+                        <div class="card-title">Top 项目质量</div>
+                    </div>
+                    <div class="card-body">
+                        ${q.projectQuality && q.projectQuality.length > 0 ? q.projectQuality.slice(0, 5).map(p => `
+                            <div class="stat-row">
+                                <span class="stat-label">${p.project}</span>
+                                <span class="stat-value ${p.avgScore >= 80 ? 'good' : 'warning'}">${p.avgScore}</span>
+                            </div>
+                        `).join('') : '<div style="color:#999">暂无数据</div>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderGrowthSection() {
+            const container = document.getElementById('growthSection');
+            const g = data.growth;
+
+            if (!g || !g.summary) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📈</div><div>暂无成长数据</div><div style="margin-top:8px;font-size:12px;">运行: growth-tracker.ps1</div></div>';
+                return;
+            }
+
+            const s = g.summary;
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">成长总览</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">参与项目</span>
+                            <span class="stat-value">${s.totalProjects} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">总提交数</span>
+                            <span class="stat-value">${s.totalCommits} 次</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">达成里程碑</span>
+                            <span class="stat-value good">${s.milestonesReached} 个</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">里程碑</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="milestone-list">
+                            ${g.milestones && g.milestones.length > 0 ? g.milestones.map(m => `
+                                <div class="milestone-item">
+                                    <div class="milestone-title">${m.title}</div>
+                                    <div class="milestone-date">${m.date}</div>
+                                </div>
+                            `).join('') : '<div style="color:#999">暂无里程碑</div>'}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderHealthSection() {
+            const container = document.getElementById('healthSection');
+            const h = data.health;
+
+            if (!h || !h.summary) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">💚</div><div>暂无健康数据</div><div style="margin-top:8px;font-size:12px;">运行: project-health-monitor.ps1</div></div>';
+                return;
+            }
+
+            const s = h.summary;
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💚</div>
+                        <div class="card-title">健康总览</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">监控项目</span>
+                            <span class="stat-value">${s.totalProjects} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">健康项目</span>
+                            <span class="stat-value good">${s.healthyCount} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">一般项目</span>
+                            <span class="stat-value warning">${s.moderateCount} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">风险项目</span>
+                            <span class="stat-value danger">${s.atRiskCount + s.criticalCount} 个</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">项目状态</div>
+                    </div>
+                    <div class="card-body">
+                        ${h.projects && h.projects.length > 0 ? h.projects.slice(0, 10).map(p => {
+                            const statusClass = p.status.toLowerCase().replace(' ', '');
+                            return `<div class="stat-row"><span class="stat-label"><span class="health-status health-${statusClass}"></span>${p.project}</span><span class="stat-value ${p.healthScore >= 80 ? 'good' : p.healthScore >= 60 ? 'warning' : 'danger'}">${p.healthScore}</span></div>`;
+                        }).join('') : '<div style="color:#999">暂无项目</div>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderReportsSection() {
+            const container = document.getElementById('reportsSection');
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📝</div>
+                        <div class="card-title">智能报告</div>
+                    </div>
+                    <div class="card-body">
+                        <p>查看生成的智能分析报告：</p>
+                        <a href="/report/weekly" class="link-btn" target="_blank">📊 周报</a>
+                        <a href="/report/growth" class="link-btn" target="_blank">📈 成长报告</a>
+                        <a href="/report/health" class="link-btn" target="_blank">💚 健康报告</a>
+                        <a href="/report/monthly" class="link-btn" target="_blank">📋 月报</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🏆</div>
+                        <div class="card-title">成就系统</div>
+                    </div>
+                    <div class="card-body">
+                        <p>查看已解锁的成就：</p>
+                        <a href="/achievements" class="link-btn" target="_blank">🎯 打开成就页面</a>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🔗</div>
+                        <div class="card-title">快速链接</div>
+                    </div>
+                    <div class="card-body">
+                        <p>访问其他功能页面：</p>
+                        <a href="/dashboard" class="link-btn" target="_blank">🎯 主仪表板</a>
+                        <a href="/api/reports/latest-daily" class="link-btn" target="_blank">📝 今日日报</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 初始化加载
+        loadAllData();
+
+        // 每60秒自动刷新
+        setInterval(loadAllData, 60000);
+    </script>
+</body>
+</html>
