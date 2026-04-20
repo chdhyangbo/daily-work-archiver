@@ -2,13 +2,66 @@
 
 > 🎉 **恭喜！您的全功能工作归档系统已安装完成！**
 > 
-> **开发完成**: 2026-04-17 | **总阶段**: 4/4 (100%) | **总工具**: 28个
+> **开发完成**: 2026-04-17 | **总阶段**: 4/4 (100%) | **总工具**: 70+个 (41 PowerShell + 30 TypeScript)
 
 ---
 
-## ⚡ 快速启动（3步开始使用）
+## ⚡ 快速启动（推荐工具）
 
-> **重要：所有命令都需要在 tools 目录下执行！**
+### 🚀 方式1：使用 tools-ng（Node.js版，最推荐）
+
+新一代工具集，性能更快、跨平台支持、类型安全：
+
+```powershell
+# 1. 进入 tools-ng 目录
+cd d:\work\ai\lingma\.lingma\skills\tools-ng
+
+# 2. 安装依赖（只需一次）
+npm install
+
+# 3. 编译项目（只需一次）
+npm run build
+```
+
+**一键生成报告（编译后）：**
+
+```powershell
+# 一键生成本周周报（最常用）
+npm run weekly
+
+# 一键生成今日日报
+npm run daily
+
+# 一键生成本月报告
+npm run monthly
+
+# 一键完成完整流程（聚合数据 + 生成周报）
+npm run full
+
+# 一键查看成就
+npm run achievement
+
+# 一键聚合Git数据
+npm run aggregate
+
+# 查看完整菜单
+npm run menu
+```
+
+**开发模式（无需编译）：**
+
+```powershell
+# 使用 tsx 直接运行 TypeScript 源码
+npm run dev -- report -t weekly
+npm run dev -- achievement
+npm run dev -- analyze
+```
+
+**详细文档**: 查看 [tools-ng/README.md](tools-ng/README.md)
+
+---
+
+### 📊 方式2：使用 PowerShell 工具（传统方式）
 
 ### 🚀 方式1：交互式控制台（最推荐）
 
@@ -155,12 +208,14 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 
 ## 📋 目录
 
-1. [⚡ 快速启动](#-快速启动3步开始使用)
+1. [⚡ 快速启动](#-快速启动推荐工具)
+   - [使用 tools-ng（推荐）](#-方式1使用-tools-ngnodejs版最推荐)
+   - [使用 PowerShell 工具](#-方式2使用-powershell-工具传统方式)
 2. [系统概览](#系统概览)
 3. [快速开始](#快速开始)
 4. [功能总览](#功能总览)
-5. [新增工具详细用法](#新增工具详细用法)
-6. [原有工具详细用法](#原有工具详细用法)
+5. [tools-ng 工具集](#tools-ng-工具集)
+6. [PowerShell 工具集](#powershell-工具集)
 7. [统一展示中心](#统一展示中心)
 8. [定时任务管理](#定时任务管理)
 9. [配置说明](#配置说明)
@@ -180,6 +235,14 @@ AI Work Archiver 是一个全功能的自动化工作追踪和报告系统，帮
 - 💾 **安全备份** 数据保护和隐私
 
 ### 技术栈
+
+**tools-ng (新一代)**:
+- **语言**: TypeScript 5.3+
+- **运行时**: Node.js 18+
+- **CLI**: Commander.js
+- **优势**: 跨平台、类型安全、高性能
+
+**PowerShell (传统)**:
 - **脚本**: PowerShell 5.1+
 - **Web**: Node.js + Express
 - **图表**: Chart.js
@@ -263,7 +326,161 @@ $OutputEncoding = [System.Text.Encoding]::UTF8
 
 ---
 
-## 功能总览
+## tools-ng 工具集
+
+> **推荐使用**：新一代 Node.js/TypeScript 工具集，性能更快、跨平台支持
+
+### 快速开始
+
+```powershell
+# 1. 进入 tools-ng 目录
+cd d:\work\ai\lingma\.lingma\skills\tools-ng
+
+# 2. 安装依赖（只需一次）
+npm install
+
+# 3. 编译项目（只需一次）
+npm run build
+```
+
+### npm Scripts 快捷命令
+
+| 命令 | 功能 | 说明 |
+|------|------|------|
+| `npm run weekly` | 生成本周周报 | 最常用 |
+| `npm run daily` | 生成今日日报 | 日常使用 |
+| `npm run monthly` | 生成本月报告 | 月末使用 |
+| `npm run full` | 完整流程 | 聚合数据 + 生成周报 |
+| `npm run achievement` | 查看成就 | 成就系统 |
+| `npm run aggregate` | 聚合Git数据 | 数据采集 |
+| `npm run dashboard` | 生成仪表板数据 | 可视化 |
+| `npm run menu` | 查看帮助菜单 | 命令清单 |
+
+### 开发模式（无需编译）
+
+```powershell
+# 直接使用 tsx 运行 TypeScript 源码
+npm run dev -- report -t weekly
+npm run dev -- achievement
+npm run dev -- analyze
+```
+
+### CLI 命令详解
+
+所有命令格式：`node dist/index.js <command> [options]`
+
+```powershell
+# 报告生成
+node dist/index.js report -t weekly
+node dist/index.js report -t daily -d 2026-04-20
+node dist/index.js report -t monthly
+
+# 代码质量
+node dist/index.js quality
+node dist/index.js quality -d 30 -p D:\work\code\myproject
+
+# 分析工具
+node dist/index.js analyze
+node dist/index.js analyze -d 30
+node dist/index.js growth
+node dist/index.js impact
+
+# 项目管理
+node dist/index.js track
+node dist/index.js track -f today
+node dist/index.js health
+node dist/index.js retro
+
+# 成就与建议
+node dist/index.js achievement
+node dist/index.js achievement -a list
+node dist/index.js advisor
+
+# 数据管理
+node dist/index.js aggregate
+node dist/index.js dashboard
+node dist/index.js backup
+```
+
+### 完整工具清单 (30个)
+
+**报告生成 (7个)**:
+- daily-report.ts - 日报生成器
+- weekly-report.ts - 周报生成器（含燃尽图）
+- monthly-report.ts - 月报生成器
+- annual-report.ts - 年度报告生成器
+- smart-report-summarizer.ts - 智能报告摘要
+- pdf-exporter.ts - PDF导出工具
+- chart-generator.ts - 图表生成器
+
+**分析工具 (6个)**:
+- commit-classifier.ts - 提交分类器
+- commit-quality-scorer.ts - 提交质量评分
+- work-pattern-analyzer.ts - 工作模式分析
+- duplicate-work-detector.ts - 重复工作检测
+- growth-tracker.ts - 成长追踪器
+- change-impact-analyzer.ts - 变更影响分析
+
+**项目管理 (5个)**:
+- project-tracker.ts - 项目进度追踪
+- project-health-monitor.ts - 项目健康监控
+- project-retro.ts - 项目复盘生成器
+- workflow-automation.ts - 工作流自动化
+- time-optimizer.ts - 时间优化助手
+
+**核心工具 (5个)**:
+- git-aggregator.ts - Git活动聚合器
+- git-work-tracker.ts - Git工作追踪器
+- achievement-system.ts - 成就系统
+- time-tracker.ts - 时间追踪器
+- work-advisor.ts - 智能工作建议
+
+**系统工具 (7个)**:
+- dashboard-data.ts - 仪表板数据生成
+- data-backup.ts - 数据备份工具
+- notification.ts - 桌面通知
+- security.ts - 数据安全工具
+- quick-verification.ts - 快速验证
+- achievement-card-generator.ts - 成就卡片生成
+- achievement-image-generator.ts - 成就图片生成
+
+### 与 PowerShell 版本对比
+
+| 特性 | PowerShell | tools-ng (Node.js) |
+|------|-----------|-------------------|
+| 性能 | 较慢 | 快 3-5x ✅ |
+| 跨平台 | 仅 Windows | Windows/Mac/Linux ✅ |
+| 类型安全 | 无 | TypeScript ✅ |
+| 生态 | 有限 | npm 丰富生态 ✅ |
+| 维护性 | 一般 | 优秀 ✅ |
+| 扩展性 | 困难 | 容易 ✅ |
+| 安装 | 无需安装 | 需要 Node.js 18+ |
+| 使用 | 直接使用 | 需要 npm install + build |
+
+### 配置修改
+
+编辑 `src/utils/config.ts` 修改配置：
+
+```typescript
+export function loadConfig(): AppConfig {
+  return {
+    projectPaths: ['D:\\work\\code', 'D:\\work\\codepos'],
+    author: 'yangbo',
+    outputBaseDir: path.resolve(__dirname, '../../work-archive'),
+    daysBack: 365
+  };
+}
+```
+
+**详细文档**: 查看 [tools-ng/README.md](tools-ng/README.md)
+
+---
+
+## PowerShell 工具集
+
+> **传统方式**：所有 PowerShell 工具仍然可用，兼容 Windows 系统
+
+### 快速启动
 
 ### 完整工具清单（28+个脚本）
 
