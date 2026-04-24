@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>目标管理 - INFJ 工作进度系统</title>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xl);
+        }
+        @media (max-width: 768px) {
+            .content-grid { grid-template-columns: 1fr; }
+        }
+        .goal-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .goal-item {
+            background: var(--bg-tertiary);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-md);
+            border-left: 3px solid var(--accent-primary);
+            border: 1px solid var(--border-subtle);
+            transition: all var(--transition-base);
+        }
+        .goal-item:hover {
+            background: var(--bg-hover);
+            transform: translateX(4px);
+            border-color: var(--accent-primary);
+        }
+        .goal-item.completed {
+            border-left-color: var(--accent-success);
+            opacity: 0.7;
+        }
+        .goal-item.overdue {
+            border-left-color: var(--accent-danger);
+        }
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: var(--space-sm);
+        }
+        .goal-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .form-group {
+            margin-bottom: var(--space-lg);
+        }
+        .form-group label {
+            display: block;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            font-size: 0.875rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            font-size: 0.9375rem;
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            transition: all var(--transition-base);
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.1);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>🎯 目标管理</h1>
+            <p class="subtitle">INFJ 工作进度系统</p>
+        </div>
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .badge-quarterly { background: #bee3f8; color: #2c5282; }
+        .badge-monthly { background: #c6f6d5; color: #276749; }
+        .badge-weekly { background: #feebc8; color: #c05621; }
+        .badge-daily { background: #fed7d7; color: #c53030; }
+
+        .goal-why {
+            color: #666;
+            font-size: 14px;
+            margin: 10px 0;
+            font-style: italic;
+        }
+
+        .goal-progress {
+            margin-top: 15px;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .goal-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .message.success {
+            background: #c6f6d5;
+            color: #276749;
+            border: 1px solid #9ae6b4;
+            display: block;
+        }
+
+        .message.error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #fc8181;
+            display: block;
+        }
+
+        .delete-btn {
+            background: #f56565;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            opacity: 0.7;
+        }
+
+        .delete-btn:hover {
+            opacity: 1;
+            background: #e53e3e;
+            transform: scale(1.05);
+        }
+
+        .goal-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 目标管理中心</h1>
+            <p>INFJ 意义驱动目标追踪系统 - 连接内在动机，实现持续成长</p>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>活跃目标</h3>
+                <div class="value" id="activeGoals">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>已完成</h3>
+                <div class="value" id="completedGoals">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>平均进度</h3>
+                <div class="value" id="avgProgress">0%</div>
+            </div>
+            <div class="stat-card">
+                <h3>即将到期</h3>
+                <div class="value" id="dueSoonGoals">0</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="card">
+                <h2>➕ 创建新目标</h2>
+                <form id="goalForm">
+                    <div class="form-group">
+                        <label for="title">目标名称 *</label>
+                        <input type="text" id="title" required placeholder="例如：学习 TypeScript 高级特性">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="level">目标层级 *</label>
+                        <select id="level" required>
+                            <option value="quarterly">季度目标</option>
+                            <option value="monthly" selected>月度目标</option>
+                            <option value="weekly">周度目标</option>
+                            <option value="daily">每日目标</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="why">为什么这个目标对你重要？* (INFJ 意义感)</label>
+                        <textarea id="why" required placeholder="例如：提升代码质量，减少 bug，成为更好的开发者"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deadline">截止日期 *</label>
+                        <input type="date" id="deadline" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="emotionalValue">情感价值</label>
+                        <select id="emotionalValue">
+                            <option value="growth" selected>个人成长</option>
+                            <option value="impact">影响力</option>
+                            <option value="mastery">技能精通</option>
+                            <option value="connection">连接与贡献</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">详细描述（可选）</label>
+                        <textarea id="description" placeholder="补充说明..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">创建目标</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h2>📋 我的目标</h2>
+                <div id="goalList" class="goal-list">
+                    <div class="loading">加载中...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api/goals';
+
+        // Set default deadline (1 month from now)
+        const defaultDate = new Date();
+        defaultDate.setMonth(defaultDate.getMonth() + 1);
+        document.getElementById('deadline').value = defaultDate.toISOString().split('T')[0];
+
+        // Load goals on page load
+        loadGoals();
+
+        // Form submission
+        document.getElementById('goalForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const goalData = {
+                title: document.getElementById('title').value,
+                level: document.getElementById('level').value,
+                why: document.getElementById('why').value,
+                deadline: document.getElementById('deadline').value,
+                emotionalValue: document.getElementById('emotionalValue').value,
+                description: document.getElementById('description').value
+            };
+
+            try {
+                const response = await fetch(API_BASE, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(goalData)
+                });
+
+                if (response.ok) {
+                    showMessage('目标创建成功！', 'success');
+                    document.getElementById('goalForm').reset();
+                    document.getElementById('deadline').value = defaultDate.toISOString().split('T')[0];
+                    loadGoals();
+                } else {
+                    showMessage('创建失败，请重试', 'error');
+                }
+            } catch (error) {
+                showMessage('网络错误: ' + error.message, 'error');
+            }
+        });
+
+        async function loadGoals() {
+            try {
+                const response = await fetch(API_BASE);
+                const data = await response.json();
+                
+                displayGoals(data.goals || []);
+                updateStats(data.stats || {});
+            } catch (error) {
+                document.getElementById('goalList').innerHTML = 
+                    '<div class="empty-state">加载失败，请刷新页面</div>';
+            }
+        }
+
+        function displayGoals(goals) {
+            const container = document.getElementById('goalList');
+            
+            if (goals.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <p>还没有目标，创建你的第一个目标吧！</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const sortedGoals = goals.sort((a, b) => {
+                if (a.status === 'completed' && b.status !== 'completed') return 1;
+                if (a.status !== 'completed' && b.status === 'completed') return -1;
+                return new Date(a.deadline) - new Date(b.deadline);
+            });
+
+            container.innerHTML = sortedGoals.map(goal => {
+                const daysLeft = Math.ceil((new Date(goal.deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+                const isCompleted = goal.status === 'completed';
+                const isOverdue = !isCompleted && daysLeft < 0;
+                
+                return `
+                    <div class="goal-item ${isCompleted ? 'completed' : ''} ${isOverdue ? 'overdue' : ''}">
+                        <div class="goal-header">
+                            <div class="goal-title">${isCompleted ? '✅ ' : ''}${goal.title}</div>
+                            <div class="goal-actions">
+                                <span class="goal-badge badge-${goal.level}">${getLevelLabel(goal.level)}</span>
+                                <button class="delete-btn" onclick="deleteGoal('${goal.id}', '${goal.title}')">🗑️ 删除</button>
+                            </div>
+                        </div>
+                        <div class="goal-why">💭 ${goal.why}</div>
+                        <div class="goal-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${goal.progress}%"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span>进度: ${goal.progress}%</span>
+                                <span>${isCompleted ? '已完成' : (isOverdue ? `逾期 ${Math.abs(daysLeft)} 天` : `${daysLeft} 天后到期`)}</span>
+                            </div>
+                        </div>
+                        <div class="goal-meta">
+                            <span>📅 ${goal.deadline}</span>
+                            <span>💚 ${getEmotionalLabel(goal.emotionalValue)}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStats(stats) {
+            document.getElementById('activeGoals').textContent = stats.active || 0;
+            document.getElementById('completedGoals').textContent = stats.completed || 0;
+            document.getElementById('avgProgress').textContent = (stats.avgProgress || 0) + '%';
+            document.getElementById('dueSoonGoals').textContent = stats.dueSoon || 0;
+        }
+
+        function getLevelLabel(level) {
+            const labels = {
+                yearly: '年度',
+                quarterly: '季度',
+                monthly: '月度',
+                weekly: '周度',
+                daily: '每日'
+            };
+            return labels[level] || level;
+        }
+
+        function getEmotionalLabel(value) {
+            const labels = {
+                growth: '成长',
+                impact: '影响力',
+                mastery: '精通',
+                connection: '连接'
+            };
+            return labels[value] || value;
+        }
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = `message ${type}`;
+            setTimeout(() => {
+                msg.className = 'message';
+            }, 3000);
+        }
+
+        async function deleteGoal(goalId, goalTitle) {
+            // INFJ 友好的确认提示
+            const confirmed = confirm(`确定要删除目标「${goalTitle}」吗？\n\n删除后将无法恢复，但你可以重新创建。`);
+            
+            if (!confirmed) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/${goalId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    showMessage('目标已删除', 'success');
+                    loadGoals(); // 重新加载目标列表
+                } else {
+                    const data = await response.json();
+                    showMessage('删除失败: ' + (data.error || '未知错误'), 'error');
+                }
+            } catch (error) {
+                showMessage('网络错误: ' + error.message, 'error');
+            }
+        }
+    </script>
+</body>
+</html>

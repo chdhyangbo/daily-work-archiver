@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作持续性分析</title>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .issue-card {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            border-left: 3px solid;
+            border: 1px solid var(--border-subtle);
+        }
+        .issue-card.high { border-left: 3px solid var(--accent-danger); }
+        .issue-card.medium { border-left: 3px solid var(--accent-warning); }
+        .issue-card.low { border-left: 3px solid var(--accent-info); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/dashboard" class="back-btn">← 返回仪表板</a>
+        <div class="page-header">
+            <h1>⏱️ 工作持续性分析</h1>
+            <p class="subtitle">分析提交时间分布和连续工作习惯</p>
+        </div>
+        <div class="stat-card" style="text-align: center; padding: var(--space-2xl);">
+            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--space-sm);">质量评分</div>
+            <div class="stat-value" id="scoreValue" style="font-size: 4rem;">--</div>
+            <div style="font-size: 1.5rem; color: var(--text-tertiary); margin-top: var(--space-sm);">/ 100</div>
+        </div>
+        <div id="content">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>正在加载数据...</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('/api/quality-metrics.json');
+                if (!response.ok) throw new Error('Failed to load metrics data');
+                const data = await response.json();
+                renderMetrics(data.workConsistency);
+            } catch (error) {
+                document.getElementById('content').innerHTML = `<div class="card"><p style="color: var(--accent-danger);">❌ 加载失败: ${error.message}</p></div>`;
+            }
+        }
+        function renderMetrics(metrics) {
+            const scoreValue = document.getElementById('scoreValue');
+            const score = metrics.score;
+            scoreValue.textContent = score;
+            scoreValue.className = `stat-value ${score >= 80 ? 'text-success' : score >= 60 ? 'text-warning' : 'text-danger'}`;
+            
+            let html = `
+                <div class="card">
+                    <h2 class="section-title">📖 指标说明</h2>
+                    <p>工作持续性分析你的提交时间分布和连续工作习惯。良好的工作持续性表明：</p>
+                    <ul>
+                        <li>✅ 稳定的开发节奏</li>
+                        <li>✅ 持续的项目进展</li>
+                        <li>✅ 良好的时间管理</li>
+                        <li>✅ 避免突击式开发</li>
+                    </ul>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin: var(--space-xl) 0;">
+                        <div class="stat-card" style="text-align: center;">
+                            <div class="stat-value" style="font-size: 2rem;">${metrics.currentStreak}</div>
+                            <div style="color: var(--text-secondary); font-size: 0.875rem; margin-top: var(--space-xs);">当前连续天数</div>
+                        </div>
+                        <div class="stat-card" style="text-align: center;">
+                            <div class="stat-value" style="font-size: 2rem;">${metrics.maxStreak}</div>
+                            <div style="color: var(--text-secondary); font-size: 0.875rem; margin-top: var(--space-xs);">最长连续天数</div>
+                        </div>
+                        <div class="stat-card" style="text-align: center;">
+                            <div class="stat-value" style="font-size: 2rem;">${metrics.gaps.length}</div>
+                            <div style="color: var(--text-secondary); font-size: 0.875rem; margin-top: var(--space-xs);">工作中断次数</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            if (metrics.gaps.length > 0) {
+                html += `
+                    <div class="card">
+                        <h2 class="section-title">📅 工作中断记录</h2>
+                        <div style="display: grid; gap: var(--space-sm);">
+                            ${metrics.gaps.map(g => `
+                                <div style="display: flex; justify-content: space-between; padding: var(--space-md); background: var(--bg-tertiary); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+                                    <span style="color: var(--text-primary); font-family: var(--font-mono);">${g.start} → ${g.end}</span>
+                                    <span style="color: var(--accent-warning); font-weight: 700;">${g.days} 天</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            if (metrics.issues.length > 0) {
+                html += `<div class="card"><h2 class="section-title">⚠️ 改进建议</h2>`;
+                metrics.issues.forEach(issue => {
+                    const severityText = issue.severity === 'high' ? '严重' : issue.severity === 'medium' ? '中等' : '轻微';
+                    html += `
+                        <div class="issue-card ${issue.severity}">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                <span class="badge badge-${issue.severity}">${severityText}</span>
+                                <h3 style="font-size: 1.125rem; color: var(--text-primary);">${issue.description}</h3>
+                            </div>
+                            <div style="margin-top: 20px;">
+                                <h4 style="margin-bottom: 12px; color: var(--accent-success); font-size: 1rem;">🎯 改进计划</h4>
+                                <p style="color: var(--text-secondary); line-height: 1.8;">${issue.improvement.replace(/\n/g, '<br>')}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            } else {
+                html += `<div class="card"><h2 class="section-title">✅ 很好！</h2><p>你的工作持续性很好，保持了稳定的开发节奏。</p></div>`;
+            }
+            document.getElementById('content').innerHTML = html;
+        }
+        loadData();
+    </script>
+</body>
+</html>

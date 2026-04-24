@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Work Archiver - 统一展示中心</title>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .report-link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>🎯 AI Work Archiver</h1>
+            <p class="subtitle">一站式查看所有工作分析数据和报告</p>
+        </div>
+
+        <div class="status-bar">
+            <div>
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">数据状态</div>
+                <div class="timestamp" id="lastUpdate">最后更新: 加载中...</div>
+            </div>
+            <button class="btn btn-primary" onclick="loadAllData()">🔄 刷新数据</button>
+        </div>
+
+        <h2 class="section-title">📊 可视化报告</h2>
+        <div class="cards-grid" id="reportsSection"></div>
+
+        <h2 class="section-title">📈 核心指标</h2>
+        <div class="cards-grid" id="coreMetrics"></div>
+
+        <h2 class="section-title">🎖️ 质量分析</h2>
+        <div class="cards-grid" id="qualitySection"></div>
+
+        <h2 class="section-title">📈 成长追踪</h2>
+        <div class="cards-grid" id="growthSection"></div>
+
+        <h2 class="section-title">💚 项目健康</h2>
+        <div class="cards-grid" id="healthSection"></div>
+    </div>
+
+    <script>
+        const data = {
+            dashboard: null,
+            quality: null,
+            growth: null,
+            health: null
+        };
+
+        async function loadData(url) {
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (e) {
+                console.warn(`Failed to load ${url}:`, e);
+            }
+            return null;
+        }
+
+        async function loadAllData() {
+            document.getElementById('lastUpdate').textContent = '最后更新: 加载中...';
+
+            data.dashboard = await loadData('/dashboard-data.json');
+            data.quality = await loadData('/api/quality-report.json');
+            data.growth = await loadData('/api/growth-report.json');
+            data.health = await loadData('/api/health-report.json');
+
+            renderCoreMetrics();
+            renderQualitySection();
+            renderGrowthSection();
+            renderHealthSection();
+            renderReportsSection();
+
+            const now = new Date().toLocaleString('zh-CN');
+            document.getElementById('lastUpdate').textContent = `最后更新: ${now}`;
+        }
+
+        function renderCoreMetrics() {
+            const container = document.getElementById('coreMetrics');
+            const d = data.dashboard;
+
+            if (!d) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📭</div><div>暂无数据</div></div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📝</div>
+                        <div class="card-title">提交统计</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">总提交数</span>
+                            <span class="stat-value">${d.stats.totalCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">今日提交</span>
+                            <span class="stat-value good">${d.stats.todayCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">本周提交</span>
+                            <span class="stat-value">${d.stats.weekCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">连续天数</span>
+                            <span class="stat-value good">${d.stats.currentStreak} 天</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">⭐</div>
+                        <div class="card-title">质量评分</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">平均分</span>
+                            <span class="stat-value ${d.qualityScore && d.qualityScore >= 80 ? 'good' : 'warning'}">${d.qualityScore || 'N/A'}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${d.qualityScore || 0}%"></div>
+                        </div>
+                        <div style="margin-top: 12px;">
+                            ${d.qualityLevels ? Object.entries(d.qualityLevels).map(([level, count]) => `<span class="badge badge-info">${level}: ${count}</span>`).join('') : ''}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🏆</div>
+                        <div class="card-title">成就系统</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">已解锁</span>
+                            <span class="stat-value good">${d.achievements ? d.achievements.unlocked : 0}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">总积分</span>
+                            <span class="stat-value">${d.achievements ? d.achievements.totalPoints : 0}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">当前等级</span>
+                            <span class="stat-value">${d.achievements ? d.achievements.level : 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderQualitySection() {
+            const container = document.getElementById('qualitySection');
+            const q = data.quality;
+
+            if (!q || !q.summary) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📊</div><div>暂无质量数据</div><div style="margin-top:8px;font-size:12px;">运行: cd tools-ng && npx tsx src/index.ts quality -d 30</div></div>';
+                return;
+            }
+
+            const s = q.summary;
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">质量总览</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">评分提交数</span>
+                            <span class="stat-value">${s.totalCommits}</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">平均分</span>
+                            <span class="stat-value ${s.averageScore >= 80 ? 'good' : 'warning'}">${s.averageScore}/100</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${s.averageScore}%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🏅</div>
+                        <div class="card-title">等级分布</div>
+                    </div>
+                    <div class="card-body">
+                        ${Object.entries(s.levelDistribution).map(([level, count]) => {
+                            const colors = {S: '#ffd700', A: '#4caf50', B: '#2196f3', C: '#ff9800', D: '#f44336'};
+                            return `<div class="stat-row"><span class="stat-label">${level}级</span><span class="stat-value" style="color:${colors[level]}">${count} 个</span></div>`;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📈</div>
+                        <div class="card-title">Top 项目质量</div>
+                    </div>
+                    <div class="card-body">
+                        ${q.projectQuality && q.projectQuality.value && q.projectQuality.value.length > 0 ? q.projectQuality.value.slice(0, 5).map(p => `
+                            <div class="stat-row">
+                                <span class="stat-label">${p.project}</span>
+                                <span class="stat-value ${p.avgScore >= 80 ? 'good' : 'warning'}">${p.avgScore}</span>
+                            </div>
+                        `).join('') : '<div style="color:#999">暂无数据</div>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderGrowthSection() {
+            const container = document.getElementById('growthSection');
+            const g = data.growth;
+
+            if (!g || !g.summary) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">📈</div><div>暂无成长数据</div><div style="margin-top:8px;font-size:12px;">运行: cd tools-ng && npx tsx src/index.ts growth -m 12</div></div>';
+                return;
+            }
+
+            const s = g.summary;
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">成长总览</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">参与项目</span>
+                            <span class="stat-value">${s.totalProjects} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">总提交数</span>
+                            <span class="stat-value">${s.totalCommits} 次</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">达成里程碑</span>
+                            <span class="stat-value good">${s.milestonesReached} 个</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">里程碑</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="milestone-list">
+                            ${g.milestones && g.milestones.length > 0 ? g.milestones.map(m => `
+                                <div class="milestone-item">
+                                    <div class="milestone-title">${m.title}</div>
+                                    <div class="milestone-date">${m.date}</div>
+                                </div>
+                            `).join('') : '<div style="color:#999">暂无里程碑</div>'}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderHealthSection() {
+            const container = document.getElementById('healthSection');
+            const h = data.health;
+
+            if (!h || !h.summary) {
+                container.innerHTML = '<div class="empty-state"><div class="icon">💚</div><div>暂无健康数据</div><div style="margin-top:8px;font-size:12px;">运行: project-health-monitor.ps1</div></div>';
+                return;
+            }
+
+            const s = h.summary;
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">💚</div>
+                        <div class="card-title">健康总览</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="stat-row">
+                            <span class="stat-label">监控项目</span>
+                            <span class="stat-value">${s.totalProjects} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">健康项目</span>
+                            <span class="stat-value good">${s.healthyCount} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">一般项目</span>
+                            <span class="stat-value warning">${s.moderateCount} 个</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">风险项目</span>
+                            <span class="stat-value danger">${s.atRiskCount + s.criticalCount} 个</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📋</div>
+                        <div class="card-title">项目状态</div>
+                    </div>
+                    <div class="card-body">
+                        ${h.projects && h.projects.length > 0 ? h.projects.slice(0, 10).map(p => {
+                            const statusClass = p.status.toLowerCase().replace(' ', '');
+                            return `<div class="stat-row"><span class="stat-label"><span class="health-status health-${statusClass}"></span>${p.project}</span><span class="stat-value ${p.healthScore >= 80 ? 'good' : p.healthScore >= 60 ? 'warning' : 'danger'}">${p.healthScore}</span></div>`;
+                        }).join('') : '<div style="color:#999">暂无项目</div>'}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderReportsSection() {
+            const container = document.getElementById('reportsSection');
+            container.innerHTML = `
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">工作报告</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="report-link-grid">
+                            <div class="stat-row">
+                                <span class="stat-label">📝 日报</span>
+                                <a href="/report/daily" class="link-btn">查看</a>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">📅 周报</span>
+                                <a href="/report/weekly" class="link-btn">查看</a>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">🗓️ 月报</span>
+                                <a href="/report/monthly" class="link-btn">查看</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">📈</div>
+                        <div class="card-title">分析报告</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="report-link-grid">
+                            <div class="stat-row">
+                                <span class="stat-label">📈 成长报告</span>
+                                <a href="/report/growth" class="link-btn">查看</a>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">💚 健康报告</span>
+                                <a href="/report/health" class="link-btn">查看</a>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">🎯 主仪表板</span>
+                                <a href="/dashboard" class="link-btn">查看</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-icon">🏆</div>
+                        <div class="card-title">成就系统</div>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin-bottom: var(--space-md);">查看已解锁的成就徽章和等级:</p>
+                        <a href="/achievements" class="btn btn-primary">🎯 打开成就页面</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 初始化加载
+        loadAllData();
+
+        // 每60秒自动刷新
+        setInterval(loadAllData, 60000);
+    </script>
+</body>
+</html>

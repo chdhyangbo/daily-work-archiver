@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成长报告</title>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+        }
+        .milestone-list { display: grid; gap: var(--space-md); }
+        .milestone-item { 
+            background: var(--bg-tertiary); 
+            padding: var(--space-lg); 
+            border-radius: var(--radius-md); 
+            border-left: 3px solid var(--accent-primary);
+            border: 1px solid var(--border-subtle);
+        }
+        .milestone-title { font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-xs); }
+        .milestone-date { font-size: 0.875rem; color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div class="report-container">
+            <div id="content">
+                <div class="loading">加载成长报告...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function loadReport() {
+            try {
+                const response = await fetch('/api/growth-report.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('content').innerHTML = renderReport(data);
+                } else {
+                    document.getElementById('content').innerHTML = '<div class="error">暂无成长报告数据</div>';
+                }
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="error">加载报告失败</div>';
+            }
+        }
+
+        function renderReport(data) {
+            if (!data.summary) return '<div class="empty">暂无数据，请运行 growth-tracker.ps1 生成报告</div>';
+
+            const s = data.summary;
+            let html = `
+                <div class="header">
+                    <h1>📈 个人成长报告</h1>
+                    <p>追踪您的技术成长和里程碑</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">${s.totalProjects || 0}</div>
+                        <div class="stat-label">参与项目</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${s.totalCommits || 0}</div>
+                        <div class="stat-label">总提交数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">${s.milestonesReached || 0}</div>
+                        <div class="stat-label">达成里程碑</div>
+                    </div>
+                </div>
+            `;
+
+            if (data.milestones && data.milestones.length > 0) {
+                html += `
+                    <div class="section">
+                        <h2>🎯 里程碑</h2>
+                        <div class="milestone-list">
+                            ${data.milestones.map(m => `
+                                <div class="milestone-item">
+                                    <div class="milestone-title">${m.title}</div>
+                                    <div class="milestone-date">达成时间：${m.date}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (data.monthlyTrend && data.monthlyTrend.length > 0) {
+                html += `
+                    <div class="section">
+                        <h2>📊 月度趋势</h2>
+                        <div class="milestone-list">
+                            ${data.monthlyTrend.slice(-6).map(m => `
+                                <div class="milestone-item">
+                                    <div class="milestone-title">${m.month}</div>
+                                    <div class="milestone-date">${m.commits} 次提交，${m.projects} 个项目</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return html;
+        }
+
+        loadReport();
+    </script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+﻿{
+    "generatedAt":  "2026-04-17 15:33:41",
+    "summary":  {
+                    "totalProjects":  20,
+                    "healthyCount":  19,
+                    "moderateCount":  5,
+                    "atRiskCount":  0,
+                    "criticalCount":  0
+                },
+    "projects":  [
+                     {
+                         "project":  "intelligence-allot",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  4,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  2,
+                                         "avgQuality":  82.5,
+                                         "activeMonths":  2,
+                                         "firstCommit":  "2026-03-10",
+                                         "lastCommit":  "2026-04-03"
+                                     }
+                     },
+                     {
+                         "project":  "collaborativeSupport",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  26,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  83.7,
+                                         "activeMonths":  7,
+                                         "firstCommit":  "2025-05-14",
+                                         "lastCommit":  "2025-12-12"
+                                     }
+                     },
+                     {
+                         "project":  "dsl-management",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  14,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  80.7,
+                                         "activeMonths":  2,
+                                         "firstCommit":  "2026-01-07",
+                                         "lastCommit":  "2026-03-13"
+                                     }
+                     },
+                     {
+                         "project":  "fast-purchase",
+                         "healthScore":  90,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  2,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  80,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2026-03-10",
+                                         "lastCommit":  "2026-03-13"
+                                     }
+                     },
+                     {
+                         "project":  "my-live-manage",
+                         "healthScore":  80,
+                         "status":  "Healthy",
+                         "alerts":  [
+
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  1,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  1,
+                                         "avgQuality":  60,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2026-03-26",
+                                         "lastCommit":  "2026-03-26"
+                                     }
+                     },
+                     {
+                         "project":  "dsl-design-system",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  7,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  82,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2025-06-06",
+                                         "lastCommit":  "2025-06-09"
+                                     }
+                     },
+                     {
+                         "project":  "baike-desktop-client",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  170,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  6,
+                                         "avgQuality":  82.1,
+                                         "activeMonths":  11,
+                                         "firstCommit":  "2025-04-21",
+                                         "lastCommit":  "2026-04-03"
+                                     }
+                     },
+                     {
+                         "project":  "combination-medication",
+                         "healthScore":  80,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  2,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  70,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2025-10-15",
+                                         "lastCommit":  "2025-10-24"
+                                     }
+                     },
+                     {
+                         "project":  "jm-bank-card",
+                         "healthScore":  95,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  15,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  89.7,
+                                         "activeMonths":  2,
+                                         "firstCommit":  "2025-06-27",
+                                         "lastCommit":  "2025-07-21"
+                                     }
+                     },
+                     {
+                         "project":  "alliance-admin-web",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  21,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  83.3,
+                                         "activeMonths":  2,
+                                         "firstCommit":  "2025-08-22",
+                                         "lastCommit":  "2025-09-23"
+                                     }
+                     },
+                     {
+                         "project":  "h5-ct-admin",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  4,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  82.5,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2025-09-10",
+                                         "lastCommit":  "2025-09-19"
+                                     }
+                     },
+                     {
+                         "project":  "franchise-operation",
+                         "healthScore":  95,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  17,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  82.4,
+                                         "activeMonths":  2,
+                                         "firstCommit":  "2025-08-15",
+                                         "lastCommit":  "2025-09-23"
+                                     }
+                     },
+                     {
+                         "project":  "activity-award",
+                         "healthScore":  90,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  1,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  85,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2025-08-01",
+                                         "lastCommit":  "2025-08-01"
+                                     }
+                     },
+                     {
+                         "project":  "operation",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  225,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  9,
+                                         "avgQuality":  82.6,
+                                         "activeMonths":  11,
+                                         "firstCommit":  "2025-05-21",
+                                         "lastCommit":  "2026-03-24"
+                                     }
+                     },
+                     {
+                         "project":  "order-reveal",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  21,
+                                         "commitsLast7Days":  13,
+                                         "commitsLast30Days":  21,
+                                         "avgQuality":  88,
+                                         "activeMonths":  2,
+                                         "firstCommit":  "2026-03-25",
+                                         "lastCommit":  "2026-04-17"
+                                     }
+                     },
+                     {
+                         "project":  "shen-part-time",
+                         "healthScore":  90,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  3,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  81.7,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2025-12-22",
+                                         "lastCommit":  "2025-12-24"
+                                     }
+                     },
+                     {
+                         "project":  "jm-channels",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  10,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  77.5,
+                                         "activeMonths":  4,
+                                         "firstCommit":  "2025-07-29",
+                                         "lastCommit":  "2025-11-05"
+                                     }
+                     },
+                     {
+                         "project":  "gis-site-selection",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  14,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  2,
+                                         "avgQuality":  83.4,
+                                         "activeMonths":  5,
+                                         "firstCommit":  "2025-10-09",
+                                         "lastCommit":  "2026-04-09"
+                                     }
+                     },
+                     {
+                         "project":  "video-cut",
+                         "healthScore":  70,
+                         "status":  "Moderate",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  2,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  60,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2025-04-25",
+                                         "lastCommit":  "2025-04-25"
+                                     }
+                     },
+                     {
+                         "project":  "price-tag-print",
+                         "healthScore":  100,
+                         "status":  "Healthy",
+                         "alerts":  [
+                                        "No commits in last 30 days"
+                                    ],
+                         "metrics":  {
+                                         "totalCommits":  3,
+                                         "commitsLast7Days":  0,
+                                         "commitsLast30Days":  0,
+                                         "avgQuality":  81.7,
+                                         "activeMonths":  1,
+                                         "firstCommit":  "2026-03-09",
+                                         "lastCommit":  "2026-03-13"
+                                     }
+                     }
+                 ]
+}

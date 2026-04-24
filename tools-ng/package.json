@@ -1,0 +1,57 @@
+{
+  "name": "tools-ng",
+  "version": "1.0.0",
+  "description": "AI Work Archiver - Next Generation Tools",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "tools-ng": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "console": "tsx src/index.ts console",
+    "daily": "node dist/index.js report -t daily",
+    "weekly": "node dist/index.js report -t weekly",
+    "monthly": "node dist/index.js report -t monthly",
+    "full": "node dist/index.js aggregate && node dist/index.js report -t weekly",
+    "quality": "node dist/index.js quality",
+    "analyze": "node dist/index.js analyze",
+    "growth": "node dist/index.js growth",
+    "track": "node dist/index.js track",
+    "health": "node dist/index.js health",
+    "achievement": "node dist/index.js achievement",
+    "advisor": "node dist/index.js advisor",
+    "dashboard": "node dist/index.js dashboard",
+    "chart": "node dist/index.js chart",
+    "backup": "node dist/index.js backup",
+    "verify": "node dist/index.js verify",
+    "aggregate": "node dist/index.js aggregate",
+    "agg:today": "node dist/index.js aggregate --today",
+    "agg:yesterday": "node dist/index.js aggregate --yesterday",
+    "agg:week": "node dist/index.js aggregate --this-week",
+    "agg:month": "node dist/index.js aggregate --this-month",
+    "agg:year": "node dist/index.js aggregate --all",
+    "agg:range": "node dist/index.js aggregate --start",
+    "menu": "node dist/index.js --help",
+    "resume": "node dist/index.js resume",
+    "kickoff": "node dist/index.js kickoff",
+    "goal": "node dist/index.js goal",
+    "reminder": "node dist/index.js reminder",
+    "energy": "node dist/index.js energy",
+    "focus": "node dist/index.js focus",
+    "generate-all-data": "npm run dashboard && npm run quality && npm run growth && npm run health"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "date-fns": "^2.30.0",
+    "chalk": "^5.3.0",
+    "execa": "^8.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.0",
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0"
+  }
+}

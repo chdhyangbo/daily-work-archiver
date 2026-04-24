@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交消息质量分析</title>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .issue-card {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            margin-bottom: var(--space-lg);
+            border-left: 3px solid;
+            border: 1px solid var(--border-subtle);
+        }
+        .issue-card.high { border-left: 3px solid var(--accent-danger); }
+        .issue-card.medium { border-left: 3px solid var(--accent-warning); }
+        .issue-card.low { border-left: 3px solid var(--accent-info); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/dashboard" class="back-btn">← 返回仪表板</a>
+        <div class="page-header">
+            <h1>📝 提交消息质量分析</h1>
+            <p class="subtitle">评估提交消息的规范性和可读性</p>
+        </div>
+        <div class="stat-card" style="text-align: center; padding: var(--space-2xl);">
+            <div style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: var(--space-sm);">质量评分</div>
+            <div class="stat-value" id="scoreValue" style="font-size: 4rem;">--</div>
+            <div style="font-size: 1.5rem; color: var(--text-tertiary); margin-top: var(--space-sm);">/ 100</div>
+        </div>
+        <div id="content">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>正在加载数据...</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        async function loadData() {
+            try {
+                const response = await fetch('/api/quality-metrics.json');
+                if (!response.ok) throw new Error('Failed to load metrics data');
+                const data = await response.json();
+                renderMetrics(data.commitMessageQuality);
+            } catch (error) {
+                document.getElementById('content').innerHTML = `<div class="card"><p style="color: var(--accent-danger);">❌ 加载失败: ${error.message}</p></div>`;
+            }
+        }
+        function renderMetrics(metrics) {
+            const scoreValue = document.getElementById('scoreValue');
+            const score = metrics.score;
+            scoreValue.textContent = score;
+            scoreValue.className = `stat-value ${score >= 80 ? 'text-success' : score >= 60 ? 'text-warning' : 'text-danger'}`;
+            
+            let html = `
+                <div class="card">
+                    <h2 class="section-title">📖 指标说明</h2>
+                    <p>提交消息质量分析评估提交消息是否符合规范、是否清晰易懂。良好的提交消息应该：</p>
+                    <ul>
+                        <li>✅ 使用祈使句（"Add feature" 而非 "Added feature"）</li>
+                        <li>✅ 包含上下文和动机</li>
+                        <li>✅ 长度适中（5-72 字符）</li>
+                        <li>✅ 避免模糊描述</li>
+                    </ul>
+                    <p style="margin-top: 15px;">
+                        <strong>分析结果：</strong>共 ${metrics.totalCommits} 个提交，
+                        平均长度 ${metrics.averageLength} 字符
+                    </p>
+                </div>
+            `;
+            
+            if (metrics.issues.length > 0) {
+                html += `<div class="card"><h2 class="section-title">⚠️ 发现的问题</h2>`;
+                metrics.issues.forEach(issue => {
+                    const severityText = issue.severity === 'high' ? '严重' : issue.severity === 'medium' ? '中等' : '轻微';
+                    html += `
+                        <div class="issue-card ${issue.severity}">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 15px;">
+                                <span class="badge badge-${issue.severity}">${severityText}</span>
+                                <h3 style="font-size: 1.125rem; color: var(--text-primary);">${issue.description}</h3>
+                            </div>
+                    `;
+                    if (issue.examples && issue.examples.length > 0) {
+                        html += `
+                            <div style="background: var(--bg-secondary); padding: 15px; border-radius: var(--radius-md); margin: 15px 0;">
+                                <h4 style="margin-bottom: 10px; color: var(--text-secondary); font-size: 0.875rem;">示例提交：</h4>
+                                <ul style="list-style: none; margin-left: 0;">${issue.examples.map(ex => `<li style="padding: 8px; margin: 5px 0; background: var(--bg-tertiary); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.875rem; color: var(--accent-secondary);">${escapeHtml(ex)}</li>`).join('')}</ul>
+                            </div>
+                        `;
+                    }
+                    html += `
+                            <div style="margin-top: 20px;">
+                                <h4 style="margin-bottom: 12px; color: var(--accent-success); font-size: 1rem;">🎯 改进计划</h4>
+                                <p style="color: var(--text-secondary); line-height: 1.8;">${issue.improvement.replace(/\n/g, '<br>')}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += `</div>`;
+            } else {
+                html += `<div class="card"><h2 class="section-title">✅ 很好！</h2><p>你的提交消息质量很高，保持了良好的提交习惯。</p></div>`;
+            }
+            document.getElementById('content').innerHTML = html;
+        }
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        loadData();
+    </script>
+</body>
+</html>

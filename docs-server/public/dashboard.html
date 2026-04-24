@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人工作仪表板</title>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        /* 日期筛选器 */
+        .date-filter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: var(--space-xl);
+            padding: var(--space-md);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .date-filter label {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+        }
+        
+        .date-filter select {
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.9375rem;
+            cursor: pointer;
+        }
+        
+        .date-filter select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+        
+        /* 统计卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+        
+        .stat-card.total { border-left: 3px solid var(--accent-secondary); }
+        .stat-card.today { border-left: 3px solid var(--accent-success); }
+        .stat-card.streak { border-left: 3px solid var(--accent-warning); }
+        .stat-card.level { border-left: 3px solid var(--accent-tertiary); }
+        
+        /* 贡献图 */
+        .contributions-graph {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+            justify-content: flex-start;
+        }
+        
+        .contribution-cell {
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            background: var(--bg-tertiary);
+            transition: all var(--transition-fast);
+        }
+        
+        .contribution-cell:hover {
+            transform: scale(1.3);
+            box-shadow: var(--shadow-glow);
+        }
+        
+        .contribution-cell.level-1 { background: rgba(0, 245, 212, 0.2); }
+        .contribution-cell.level-2 { background: rgba(0, 245, 212, 0.4); }
+        .contribution-cell.level-3 { background: rgba(0, 245, 212, 0.6); }
+        .contribution-cell.level-4 { background: var(--accent-primary); box-shadow: 0 0 8px rgba(0, 245, 212, 0.5); }
+        
+        /* 图表区域 */
+        .chart-card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bar-label {
+            width: 80px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .bar-track {
+            flex: 1;
+            height: 24px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            border-radius: var(--radius-sm);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 8px;
+            font-size: 0.75rem;
+            color: #fff;
+        }
+        
+        .bar-value {
+            width: 40px;
+            text-align: right;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        /* 最近提交 */
+        .commit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 16px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            transition: background var(--transition-base);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .commit-item:hover {
+            background: var(--bg-hover);
+        }
+        
+        .commit-hash {
+            font-family: var(--font-mono);
+            color: var(--accent-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .commit-message {
+            flex: 1;
+            font-size: 0.9375rem;
+        }
+        
+        .commit-project {
+            font-size: 0.8125rem;
+            color: var(--text-secondary);
+            background: var(--bg-tertiary);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-subtle);
+        }
+        
+        .commit-date {
+            font-size: 0.8125rem;
+            color: var(--text-tertiary);
+        }
+        
+        /* 刷新按钮 */
+        .refresh-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--gradient-aurora);
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: all var(--transition-base);
+        }
+        
+        .refresh-btn:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .refresh-btn.spinning {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* 质量指标卡片样式 */
+        .metric-card {
+            cursor: pointer;
+            position: relative;
+            transition: all var(--transition-base);
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .metric-card .value {
+            transition: color 0.3s;
+        }
+        
+        .metric-card .value.good { color: var(--accent-success); }
+        .metric-card .value.medium { color: var(--accent-warning); }
+        .metric-card .value.poor { color: var(--accent-danger); }
+        
+        .metric-card .trend {
+            font-size: 0.875rem;
+            margin-top: var(--space-sm);
+            color: var(--text-secondary);
+        }
+        
+        .metric-card .trend.improving { color: var(--accent-success); }
+        .metric-card .trend.declining { color: var(--accent-danger); }
+        .metric-card .trend.stable { color: var(--text-secondary); }
+        
+        .metric-card .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition-fast);
+            margin-bottom: 8px;
+            border: 1px solid var(--border-medium);
+        }
+        
+        .metric-card:hover .tooltip {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>📊 个人工作仪表板</h1>
+            <p class="subtitle">追踪您的工作活动和成就</p>
+        </div>
+        
+        <div id="content">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>正在加载数据...</p>
+            </div>
+        </div>
+        
+        <button class="btn btn-primary refresh-btn" onclick="refreshData()" title="刷新数据">🔄</button>
+    </div>
+    
+    <script>
+        let dashboardData = null;
+        
+        async function loadData() {
+            try {
+                const response = await fetch('/static/dashboard-data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                dashboardData = await response.json();
+                renderDashboard();
+            } catch (error) {
+                document.getElementById('content').innerHTML = `
+                    <div class="loading">
+                        <p style="color: #e94560; font-size: 1.2em;">❌ 加载失败: ${error.message}</p>
+                        <p style="margin-top: 20px; font-size: 0.95em; color: #aaa;">请按照以下步骤解决：</p>
+                        <ol style="margin-top: 15px; text-align: left; max-width: 500px; margin: 20px auto; line-height: 2; color: #888;">
+                            <li>打开 PowerShell，进入 tools 目录</li>
+                            <li>运行命令：<code style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px;">cd d:\work\ai\lingma\.lingma\skills\tools</code></li>
+                            <li>生成数据：<code style="background: rgba(255,255,255,0.1); padding: 4px 8px; border-radius: 4px;">.\generate-dashboard-data.ps1</code></li>
+                            <li>刷新本页面</li>
+                        </ol>
+                        <p style="margin-top: 20px;">
+                            <button onclick="location.reload()" style="padding: 12px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; color: white; border-radius: 8px; cursor: pointer; font-size: 1em;">🔄 刷新页面</button>
+                        </p>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderDashboard() {
+            const data = dashboardData;
+            const progressPercent = (data.level.points % 100);
+            
+            const html = `
+                <!-- 统计卡片 -->
+                <div class="stats-grid">
+                    <div class="stat-card total">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📊</div>
+                        <div class="stat-value">${data.summary.totalCommits}</div>
+                        <div class="stat-label">总提交数</div>
+                    </div>
+                    <div class="stat-card today">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">📅</div>
+                        <div class="stat-value">${data.summary.todayCommits}</div>
+                        <div class="stat-label">今日提交</div>
+                    </div>
+                    <div class="stat-card streak">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">🔥</div>
+                        <div class="stat-value">${data.summary.currentStreak}</div>
+                        <div class="stat-label">连续天数</div>
+                    </div>
+                    <div class="stat-card level">
+                        <div style="font-size: 2rem; margin-bottom: var(--space-sm);">⭐</div>
+                        <div class="stat-value">${data.summary.weekCommits}</div>
+                        <div class="stat-label">本周提交</div>
+                    </div>
+                </div>
+                
+                <!-- 等级信息 -->
+                <div class="card">
+                    <div style="display: flex; align-items: center; gap: var(--space-lg); margin-bottom: var(--space-lg);">
+                        <div style="font-size: 3rem;">🏆</div>
+                        <div>
+                            <h2 style="font-size: 1.5rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-xs);">${data.level.name}</h2>
+                            <p style="color: var(--text-secondary);">${data.level.points} 积分 · ${data.level.achievements.unlocked}/${data.level.achievements.total} 成就</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progressPercent}%"></div>
+                    </div>
+                </div>
+                
+                <!-- 贡献图 -->
+                <div class="card">
+                    <h2 class="section-title">📈 贡献图</h2>
+                    <div class="contributions-graph">
+                        ${data.contributions.map(c => {
+                            const level = c.count === 0 ? 0 : c.count === 1 ? 1 : c.count <= 3 ? 2 : c.count <= 5 ? 3 : 4;
+                            return `<div class="contribution-cell level-${level}" title="${c.date}: ${c.count} 次提交"></div>`;
+                        }).join('')}
+                    </div>
+                    <div style="display: flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-md); font-size: 0.875rem; color: var(--text-secondary);">
+                        <span>少</span>
+                        <div class="contribution-cell level-1"></div>
+                        <div class="contribution-cell level-2"></div>
+                        <div class="contribution-cell level-3"></div>
+                        <div class="contribution-cell level-4"></div>
+                        <span>多</span>
+                    </div>
+                </div>
+                
+                <!-- 图表 -->
+                <div class="cards-grid">
+                    <div class="chart-card">
+                        <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-lg);">⏰ 时段分布</h3>
+                        <div class="bar-chart">
+                            ${renderHourlyChart(data.hourlyDistribution)}
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--text-primary); margin-bottom: var(--space-lg);">📁 项目分布</h3>
+                        <div class="bar-chart">
+                            ${renderProjectChart(data.projectDistribution)}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 最近提交 -->
+                <div class="card">
+                    <h2 class="section-title">📝 最近提交</h2>
+                    <div style="display: flex; flex-direction: column; gap: var(--space-sm);">
+                        ${data.recentCommits.map(c => `
+                            <div class="commit-item">
+                                <span class="commit-hash">${c.hash}</span>
+                                <span class="commit-message">${escapeHtml(c.message)}</span>
+                                <span class="commit-project">${c.project}</span>
+                                <span class="commit-date">${c.date}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('content').innerHTML = html;
+        }
+        
+        function renderHourlyChart(hourly) {
+            const max = Math.max(...Object.values(hourly));
+            const hours = ['00', '04', '08', '12', '16', '20'];
+            
+            return hours.map(h => {
+                const hNum = parseInt(h);
+                const count = hourly[hNum] || 0;
+                const percent = max > 0 ? (count / max) * 100 : 0;
+                return `
+                    <div class="bar-item">
+                        <span class="bar-label">${h}:00</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: ${percent}%; background: linear-gradient(90deg, #667eea, #764ba2);"></div>
+                        </div>
+                        <span class="bar-value">${count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function renderProjectChart(projects) {
+            const sorted = Object.entries(projects).sort((a, b) => b[1] - a[1]).slice(0, 5);
+            const max = sorted[0]?.[1] || 1;
+            
+            return sorted.map(([name, count]) => {
+                const percent = (count / max) * 100;
+                return `
+                    <div class="bar-item">
+                        <span class="bar-label">${name.substring(0, 8)}</span>
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width: ${percent}%; background: linear-gradient(90deg, #10b981, #059669);"></div>
+                        </div>
+                        <span class="bar-value">${count}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function refreshData() {
+            const btn = document.querySelector('.refresh-btn');
+            btn.classList.add('spinning');
+            loadData().then(() => {
+                setTimeout(() => btn.classList.remove('spinning'), 500);
+            });
+        }
+        
+        // 加载数据
+        loadData();
+    </script>
+</body>
+</html>

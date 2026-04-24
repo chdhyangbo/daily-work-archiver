@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+        }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div class="report-container">
+            <div class="date-selector">
+                <label for="monthPicker">📅 选择月份:</label>
+                <input type="month" id="monthPicker" class="input" />
+                <button class="btn btn-primary" onclick="loadReport()">查看月报</button>
+            </div>
+            <div id="reportDate" style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-md);"></div>
+            <div id="content">
+                <div class="loading">Loading monthly report...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize month picker with current month
+        function initializeMonthPicker() {
+            const now = new Date();
+            const monthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+            document.getElementById('monthPicker').value = monthStr;
+        }
+
+        async function loadReport() {
+            const selectedMonth = document.getElementById('monthPicker').value;
+            if (!selectedMonth) {
+                document.getElementById('content').innerHTML = '<div class="error">请选择月份</div>';
+                return;
+            }
+
+            document.getElementById('content').innerHTML = '<div class="loading">Loading monthly report...</div>';
+            document.getElementById('reportDate').textContent = `查看月份: ${selectedMonth}`;
+
+            try {
+                const response = await fetch(`/api/reports/monthly?month=${selectedMonth}`);
+                if (response.ok) {
+                    const markdown = await response.text();
+                    // Use marked library for full Markdown support
+                    const htmlContent = marked.parse(markdown);
+                    document.getElementById('content').innerHTML = `<div class="markdown-body">${htmlContent}</div>`;
+                } else {
+                    document.getElementById('content').innerHTML = '<div class="error">该月暂无月报</div>';
+                }
+            } catch (e) {
+                document.getElementById('content').innerHTML = '<div class="error">Failed to load report</div>';
+            }
+        }
+
+        // Initialize on page load
+        initializeMonthPicker();
+        loadReport();
+    </script>
+</body>
+</html>

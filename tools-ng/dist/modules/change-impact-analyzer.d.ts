@@ -1,0 +1,2 @@
+export declare function generateChangeImpactReport(projectPath: string, author: string, days: number | undefined, outputDir: string): Promise<void>;
+//# sourceMappingURL=change-impact-analyzer.d.ts.map

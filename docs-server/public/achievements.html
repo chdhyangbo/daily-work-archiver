@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成就系统</title>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-xl);
+            margin-bottom: var(--space-2xl);
+            padding: var(--space-xl);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+        }
+        .category-filter {
+            display: flex;
+            gap: var(--space-sm);
+            margin: var(--space-xl) 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-medium);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            transition: all var(--transition-base);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .filter-btn:hover {
+            background: var(--bg-hover);
+            border-color: var(--accent-primary);
+            color: var(--text-primary);
+        }
+        .filter-btn.active {
+            background: var(--accent-primary);
+            color: var(--bg-primary);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow-glow);
+        }
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-xl);
+        }
+        .achievement-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            transition: all var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-aurora);
+            opacity: 0;
+            transition: opacity var(--transition-base);
+        }
+        .achievement-card:hover::before {
+            opacity: 1;
+        }
+        .achievement-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-lg);
+        }
+        .achievement-card.unlocked {
+            border-left: 3px solid var(--accent-success);
+        }
+        .achievement-card.locked {
+            opacity: 0.5;
+            filter: grayscale(80%);
+        }
+        .achievement-card.locked:hover {
+            opacity: 0.7;
+            filter: grayscale(60%);
+        }
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+        }
+        .achievement-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+        }
+        .achievement-desc {
+            font-size: 0.9375rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-md);
+        }
+        .achievement-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .status-unlocked {
+            background: rgba(0, 245, 212, 0.1);
+            color: var(--accent-success);
+            border: 1px solid rgba(0, 245, 212, 0.3);
+        }
+        .status-locked {
+            background: var(--bg-tertiary);
+            color: var(--text-tertiary);
+            border: 1px solid var(--border-subtle);
+        }
+        .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8125rem;
+            white-space: nowrap;
+            z-index: 10;
+            margin-bottom: 8px;
+            border: 1px solid var(--border-medium);
+            box-shadow: var(--shadow-lg);
+        }
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--border-medium);
+        }
+        .achievement-card.locked:hover .tooltip {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div class="page-header">
+            <h1>🏆 成就系统</h1>
+            <p class="subtitle">追踪您的进度并解锁成就</p>
+        </div>
+
+        <div class="stats-bar" id="statsBar">
+            <div>
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">已解锁</div>
+                <div class="stat-value" id="totalUnlocked" style="font-size: 2rem;">0</div>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">总积分</div>
+                <div class="stat-value" id="totalPoints" style="font-size: 2rem;">0</div>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">当前等级</div>
+                <div class="stat-value" id="currentLevel" style="font-size: 2rem;">-</div>
+            </div>
+            <div>
+                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">下一里程碑</div>
+                <div class="stat-value" id="nextMilestone" style="font-size: 2rem;">-</div>
+            </div>
+        </div>
+
+        <div id="achievementsContainer"></div>
+    </div>
+
+    <script>
+        const iconMap = {
+            'SEED': '🌱',
+            'SEEDLING': '🌿',
+            'TREE': '🌳',
+            'TROPHY': '🏆',
+            'FIRE': '🔥',
+            'LIGHTNING': '⚡',
+            'TARGET': '🎯',
+            'BRONZE': '🥉',
+            'SILVER': '🥈',
+            'GOLD': '🥇',
+            'DIAMOND': '💎',
+            'CROWN': '👑',
+            'LEGEND': '🌟',
+            // 新增图标
+            'STAR': '⭐',
+            'MOON': '🌙',
+            'ROCKET': '🚀',
+            'MUSCLE': '💪',
+            'VUE': '🟢',
+            'REACT': '⚛️',
+            'PUZZLE': '🧩',
+            'PALETTE': '🎨',
+            'PHONE': '📱',
+            'BLUE': '🔷',
+            'ROBOT': '🤖',
+            'SPEECH': '💬',
+            'BRAIN': '🧠',
+            'GEAR': '⚙️',
+            'BOOKS': '📚',
+            'ROBOT_ARM': '🦾',
+            'GLOBE': '🌐',
+            'PLUG': '🔌',
+            'DATABASE': '🗄️',
+            'EYE': '👁️',
+            'BUG': '🐛',
+            'CHECK': '✅',
+            'NOTE': '📝'
+        };
+
+        async function loadAchievements() {
+            try {
+                const response = await fetch('/api/achievements.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    renderAchievements(data);
+                } else {
+                    document.getElementById('achievementsContainer').innerHTML = '<div style="text-align:center;color:white;padding:40px;">暂无成就数据</div>';
+                }
+            } catch (e) {
+                document.getElementById('achievementsContainer').innerHTML = '<div style="text-align:center;color:white;padding:40px;">加载成就数据失败</div>';
+            }
+        }
+
+        function renderAchievements(data) {
+            // Update stats
+            document.getElementById('totalUnlocked').textContent = data.achievements?.unlocked || 0;
+            document.getElementById('totalPoints').textContent = data.achievements?.totalPoints || 0;
+            document.getElementById('currentLevel').textContent = data.level?.current?.name || '-';
+            document.getElementById('nextMilestone').textContent = data.level?.next?.name || '-';
+
+            // Render achievements
+            const container = document.getElementById('achievementsContainer');
+            const achievements = data.achievements?.list || [];
+            
+            if (achievements.length === 0) {
+                container.innerHTML = '<div style="text-align:center;color:white;padding:40px;grid-column:1/-1;">暂无成就</div>';
+                return;
+            }
+
+            // 添加分类筛选
+            const categories = [...new Set(achievements.map(a => a.category))];
+            let filterHtml = '<div class="category-filter"><button class="filter-btn active" data-category="all">全部</button>';
+            const categoryNames = {
+                'milestone': '🎯 里程碑',
+                'consistency': '🔥 坚持',
+                'contribution': '💼 贡献',
+                'frontend': '🎨 前端开发',
+                'ai_engineering': '🤖 AI工程',
+                'fullstack': '🌐 全栈',
+                'engineering': '⚙️ 工程实践'
+            };
+            categories.forEach(cat => {
+                filterHtml += `<button class="filter-btn" data-category="${cat}">${categoryNames[cat] || cat}</button>`;
+            });
+            filterHtml += '</div>';
+            
+            // 成就卡片渲染
+            container.innerHTML = filterHtml + '<div class="achievements-grid" id="grid"></div>';
+            
+            const achievementsGrid = document.getElementById('grid');
+            renderAchievementCards(achievements, 'all');
+
+            // 添加筛选事件
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    const category = btn.dataset.category;
+                    renderAchievementCards(achievements, category);
+                });
+            });
+        }
+
+        function renderAchievementCards(achievements, category) {
+            const grid = document.getElementById('grid');
+            const filtered = category === 'all' ? achievements : achievements.filter(a => a.category === category);
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="text-align:center;color:white;padding:40px;grid-column:1/-1;">该分类下暂无成就</div>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(ach => {
+                const isUnlocked = ach.unlocked || false;
+                const progress = ach.progress || 0;
+                const icon = iconMap[ach.icon] || ach.icon || '🏆';
+                return `
+                    <div class="achievement-card ${isUnlocked ? 'unlocked' : 'locked'}">
+                        ${!isUnlocked ? `<div class="tooltip">解锁条件: ${ach.requirement || '未知'}</div>` : ''}
+                        <div class="achievement-icon">${icon}</div>
+                        <div class="achievement-title">${ach.name || ach.id}</div>
+                        <div class="achievement-desc">${ach.description || ''}</div>
+                        <span class="achievement-status ${isUnlocked ? 'status-unlocked' : 'status-locked'}">
+                            ${isUnlocked ? '✓ 已解锁' : `进度: ${progress}%`}
+                        </span>
+                        ${!isUnlocked ? `
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progress}%"></div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        loadAchievements();
+    </script>
+</body>
+</html>

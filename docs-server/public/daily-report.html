@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>今日日报</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="/static/design-system.css">
+    <style>
+        .report-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+        }
+    </style>
+</head>
+<body>
+    <a href="/overview" class="back-btn">← 返回概览</a>
+    
+    <div class="container">
+        <div class="report-container">
+            <div class="date-selector">
+                <label for="datePicker">📅 选择日期:</label>
+                <input type="date" id="datePicker" class="input" />
+                <button class="btn btn-primary" onclick="loadReport()">查看日报</button>
+            </div>
+            <div id="reportDate" style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-md);"></div>
+            <div id="content">
+                <div class="loading">加载日报...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize date picker with today's date
+        function initializeDatePicker() {
+            const today = new Date();
+            const dateStr = today.toISOString().split('T')[0];
+            document.getElementById('datePicker').value = dateStr;
+        }
+
+        async function loadReport() {
+            const selectedDate = document.getElementById('datePicker').value;
+            if (!selectedDate) {
+                document.getElementById('content').innerHTML = '<div class="error">请选择日期</div>';
+                return;
+            }
+
+            console.log('Loading report for date:', selectedDate);
+            document.getElementById('content').innerHTML = '<div class="loading">加载日报...</div>';
+            document.getElementById('reportDate').textContent = `查看日期: ${selectedDate}`;
+
+            try {
+                const url = `/api/reports/daily?date=${selectedDate}`;
+                console.log('Fetching URL:', url);
+                const response = await fetch(url);
+                console.log('Response status:', response.status);
+                
+                if (response.ok) {
+                    const markdown = await response.text();
+                    console.log('Received markdown length:', markdown.length);
+                    // Check if it's actually markdown or an error JSON
+                    if (markdown.startsWith('{')) {
+                        const data = JSON.parse(markdown);
+                        document.getElementById('content').innerHTML = `<div class="error">${data.error || '该日期暂无日报'}</div>`;
+                    } else {
+                        const htmlContent = marked.parse(markdown);
+                        document.getElementById('content').innerHTML = `<div class="markdown-body">${htmlContent}</div>`;
+                    }
+                } else {
+                    const errorText = await response.text();
+                    console.error('Error response:', errorText);
+                    document.getElementById('content').innerHTML = `<div class="error">该日期暂无日报 (HTTP ${response.status})</div>`;
+                }
+            } catch (e) {
+                console.error('Fetch error:', e);
+                document.getElementById('content').innerHTML = `<div class="error">加载日报失败: ${e.message}</div>`;
+            }
+        }
+
+        // Initialize on page load
+        initializeDatePicker();
+        loadReport();
+    </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试日报筛选</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        button { padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #5568d3; }
+        #result { margin-top: 20px; padding: 20px; background: #f5f5f5; border-radius: 8px; min-height: 100px; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>测试日报筛选功能</h1>
+    
+    <div class="test-section">
+        <h2>测试1: API直接访问</h2>
+        <button onclick="testAPI()">测试 API: /api/reports/daily?date=2026-04-22</button>
+        <div id="apiResult" style="margin-top: 10px;"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试2: 前端完整流程</h2>
+        <input type="date" id="testDate" value="2026-04-22" style="padding: 8px;">
+        <button onclick="testFrontend()">加载日报</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.innerHTML = '<p>测试中...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:3456/api/reports/daily?date=2026-04-22');
+                resultDiv.innerHTML = `<p class="success">HTTP 状态: ${response.status}</p>`;
+                
+                if (response.ok) {
+                    const text = await response.text();
+                    resultDiv.innerHTML += `<p>响应长度: ${text.length} 字符</p>`;
+                    resultDiv.innerHTML += `<p>前100字符: ${text.substring(0, 100)}...</p>`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML += `<p class="error">错误: ${errorText}</p>`;
+                }
+            } catch (e) {
+                resultDiv.innerHTML = `<p class="error">请求失败: ${e.message}</p>`;
+            }
+        }
+
+        async function testFrontend() {
+            const selectedDate = document.getElementById('testDate').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!selectedDate) {
+                resultDiv.innerHTML = '<p class="error">请选择日期</p>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<p>加载日报中...</p>';
+            console.log('测试: 加载日期', selectedDate);
+
+            try {
+                const url = `http://localhost:3456/api/reports/daily?date=${selectedDate}`;
+                console.log('请求URL:', url);
+                const response = await fetch(url);
+                console.log('响应状态:', response.status);
+                
+                if (response.ok) {
+                    const markdown = await response.text();
+                    console.log('收到内容长度:', markdown.length);
+                    
+                    if (markdown.startsWith('{')) {
+                        const data = JSON.parse(markdown);
+                        resultDiv.innerHTML = `<p class="error">${data.error}</p>`;
+                    } else {
+                        const htmlContent = marked.parse(markdown);
+                        resultDiv.innerHTML = `<div>${htmlContent}</div>`;
+                    }
+                } else {
+                    const errorText = await response.text();
+                    console.error('错误响应:', errorText);
+                    resultDiv.innerHTML = `<p class="error">该日期暂无日报 (HTTP ${response.status})</p>`;
+                }
+            } catch (e) {
+                console.error('请求错误:', e);
+                resultDiv.innerHTML = `<p class="error">加载失败: ${e.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"version":3,"file":"workflow-automation.d.ts","sourceRoot":"","sources":["../../src/modules/workflow-automation.ts"],"names":[],"mappings":"AAEA,MAAM,WAAW,YAAY;IAC3B,IAAI,EAAE,MAAM,CAAC;IACb,SAAS,EAAE,CAAC,KAAK,EAAE,GAAG,KAAK,OAAO,CAAC;IACnC,MAAM,EAAE,MAAM,IAAI,CAAC;CACpB;AAED,wBAAsB,cAAc,CAClC,YAAY,EAAE,MAAM,EAAE,EACtB,MAAM,EAAE,MAAM,GACb,OAAO,CAAC,IAAI,CAAC,CAoDf"}

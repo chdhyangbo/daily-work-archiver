@@ -1,0 +1,2 @@
+export declare function monitorProjectHealth(projectPaths: string[], author: string, days: number | undefined, outputBaseDir: string): Promise<void>;
+//# sourceMappingURL=project-health-monitor.d.ts.map
